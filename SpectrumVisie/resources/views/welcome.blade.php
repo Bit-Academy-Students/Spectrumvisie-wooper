@@ -15,6 +15,7 @@
       <a href="/login" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Login</a>
       <a href="/register" class="px-4 py-2 border rounded-md">Register</a>
     </div>
+<<<<<<< HEAD
 
 
 <table border="1" class="mt-4">
@@ -36,5 +37,8 @@
     </tbody>
   </div>
 
+=======
+  </div>
+>>>>>>> 63a334e (login working and added the PendingController)
 </body>
 </html>
