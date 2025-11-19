@@ -8,3 +8,7 @@ Route::get('/', function () {
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
+
+Route::get('/login', function () {
+    return view('login');
+});
