@@ -1,7 +1,6 @@
 <div class="container">
     <h1>Upload Materiaal</h1>
 
-<<<<<<< HEAD
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -14,11 +13,6 @@
             </ul>
         </div>
     @endif
-=======
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
->>>>>>> 9790a62 (start uploading material)
 
     <form action="{{ route('upload.post') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -29,26 +23,15 @@
         </div>
 
         <div class="mb-3">
-<<<<<<< HEAD
             <label>Beschrijving</label>
-=======
-            <label>Beschrijving *</label>
->>>>>>> 9790a62 (start uploading material)
             <textarea name="description" class="form-control" required></textarea>
         </div>
 
         <div class="mb-3">
-<<<<<<< HEAD
             <label>Materiaal Type</label>
             <select name="material_type_id" class="form-control" required>
                 <option value="">-- Selecteer --</option>
                 @foreach ($types as $type)
-=======
-            <label>Materiaal Type *</label>
-            <select name="material_type_id" class="form-control" required>
-                <option value="">-- Selecteer --</option>
-                @foreach($types as $type)
->>>>>>> 9790a62 (start uploading material)
                     <option value="{{ $type->id }}">{{ ucfirst($type->type) }}</option>
                 @endforeach
             </select>
@@ -66,7 +49,6 @@
 
         <button class="btn btn-primary" type="submit">Upload</button>
     </form>
-<<<<<<< HEAD
 
     @if (session('uploaded'))
         @php $uploaded = session('uploaded'); @endphp
@@ -113,6 +95,4 @@
 </div>
 @endif
 
-=======
->>>>>>> 9790a62 (start uploading material)
 </div>
