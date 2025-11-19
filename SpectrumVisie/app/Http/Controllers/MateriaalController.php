@@ -14,6 +14,7 @@ class MateriaalController extends Controller
         return view('upload', compact('types'));
     }
 
+<<<<<<< HEAD
     protected function youtubeEmbedUrl($url)
     {
         if (preg_match('/youtu\.be\/([^\?]+)/', $url, $matches)) {
@@ -29,6 +30,8 @@ class MateriaalController extends Controller
     }
 
 
+=======
+>>>>>>> 9790a62 (start uploading material)
     public function upload(Request $request)
     {
         $validated = $request->validate([
@@ -41,6 +44,7 @@ class MateriaalController extends Controller
 
         $filePath = null;
 
+<<<<<<< HEAD
         $materialType = MaterialType::find($validated['material_type_id']);
         $type = $materialType->type;
 
@@ -99,5 +103,20 @@ class MateriaalController extends Controller
         return redirect()->back()
             ->with('success', 'Upload succesvol!')
             ->with('uploaded', $materiaal);
+=======
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('materials', 'public');
+        }
+
+        Materiaal::create([
+            'title' => $validated['title'] ?? null,
+            'description' => $validated['description'],
+            'material_type_id' => $validated['material_type_id'],
+            'youtube_url' => $validated['youtube_url'] ?? null,
+            'file_path' => $filePath,
+        ]);
+
+        return redirect()->back()->with('success', 'Upload succesvol!');
+>>>>>>> 9790a62 (start uploading material)
     }
 }
