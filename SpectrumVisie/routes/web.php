@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PendingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', function () {
@@ -14,8 +15,9 @@ Route::get('/login', function () {
 });
 
 
-Route::get('/home', function () {
-    return view('welcome');
+Route::get('/home', function (PendingController $controller) {
+    $users = $controller->ShowAllUsers();
+    return view('welcome', compact('users'));
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
