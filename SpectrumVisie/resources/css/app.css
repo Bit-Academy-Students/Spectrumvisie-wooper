@@ -47,22 +47,22 @@
 }
 
 
-/* Page container */
+
 .auth-container {
     @apply flex items-center justify-center min-h-screen bg-gray-100 px-4;
 }
 
-/* Card */
+
 .auth-card {
     @apply bg-white shadow-lg rounded-xl p-4 sm:p-6 w-full max-w-xs sm:max-w-sm;
 }
 
-/* Title */
+
 .auth-title {
     @apply text-2xl sm:text-3xl font-bold text-gray-800 mb-5 text-center;
 }
 
-/* Alerts */
+
 .alert {
     @apply p-2 mb-3 rounded text-sm;
 }
@@ -75,7 +75,7 @@
     @apply bg-red-100 text-red-800 border border-red-200;
 }
 
-/* Form */
+
 .auth-form {
     @apply space-y-3;
 }
@@ -91,5 +91,4 @@
 .auth-button {
     @apply w-full text-white py-2 rounded-lg font-semibold hover:bg-orange-500 transition-colors text-sm;
     background-color: #2868b8;
-    /* using the same color as .blue1Dark */
 }
