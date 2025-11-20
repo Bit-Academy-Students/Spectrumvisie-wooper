@@ -26,8 +26,16 @@ Route::post('/register', [RegisterController::class, 'Register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/upload', [MateriaalController::class, 'showUploadForm'])->name('upload.form');
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
-Route::post('/register', [RegisterController::class, 'Register']);
 
 Route::get('/login', function () {
     return view('login');
 });
+
+
+Route::get('/home', function () {
+    return view('welcome');
+});
+
+Route::post('/register', [RegisterController::class, 'Register']);
+
+Route::post('/login', [LoginController::class, 'login']);
