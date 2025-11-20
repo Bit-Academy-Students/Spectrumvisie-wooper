@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('youtube_url')->nullable();
             $table->string('file_path')->nullable();
             $table->dateTime('uploaded_at')->useCurrent();
-
             $table->timestamps();
         });
     }
