@@ -15,6 +15,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/welcome', function () {
+    return view('home');
+});
+
 
 Route::get('/home', function (PendingController $controller) {
     $users = $controller->ShowAllUsers();
