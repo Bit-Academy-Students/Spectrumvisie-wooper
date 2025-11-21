@@ -12,20 +12,24 @@ class MaterialTypeSeeder extends Seeder
         DB::table('material_type')->insert([
             [
                 'type' => 'pdf',
-                'icon' => 'pdf.png',
+                'icon' => 'icons/pdf.png',
             ],
             [
                 'type' => 'word',
-                'icon' => 'word.png',
+                'icon' => 'icons/word.png',
             ],
             [
                 'type' => 'video',
-                'icon' => 'video.png',
+                'icon' => 'icons/video.png',
             ],
             [
                 'type' => 'youtube-link',
-                'icon' => 'youtube.png',
+                'icon' => 'icons/youtube.png',
             ],
+            [
+                'type' => 'artikel',
+                'icon' => 'icons/artikel.png'
+            ]
         ]);
     }
 }
