@@ -46,49 +46,16 @@
                 </p>
             </div>
 
+
         </div>
-    </section>
 
-
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl mb-8 text-center">Wat Leer Je?</h2>
-
-            <div class="grid md:grid-cols-2 gap-6">
-
-                <div class="border rounded-xl p-6 bg-white">
-                    <h3 class="text-xl font-semibold mb-3">Theoretische Kennis</h3>
-                    <p class="text-gray-600 mb-3">
-                        Diepgaande kennis over autisme spectrum stoornissen, diagnostiek en de nieuwste inzichten.
-                    </p>
-                    <ul class="space-y-2 text-gray-700">
-                        <li>• Autisme Spectrum Stoornissen (ASS)</li>
-                        <li>• Neurodiversiteit en inclusie</li>
-                        <li>• Communicatie en gedrag</li>
-                    </ul>
-                </div>
-
-                <div class="border rounded-xl p-6 bg-white">
-                    <h3 class="text-xl font-semibold mb-3">Praktische Vaardigheden</h3>
-                    <p class="text-gray-600 mb-3">
-                        Hands-on training in begeleiding, coaching en psycho-educatie.
-                    </p>
-                    <ul class="space-y-2 text-gray-700">
-                        <li>• Trainingen en groepen begeleiden</li>
-                        <li>• Individuele coaching technieken</li>
-                        <li>• Psycho-educatie ontwikkelen</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
     </section>
 
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600 text-white">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl mb-4">Klaar om te Beginnen?</h2>
             <p class="text-xl mb-8 text-blue-100">
-                Schrijf je vandaag nog in en start jouw reis naar een betekenisvolle carrière.
+                Schrijf je vandaag nog in en kom alles te weten over psycho-educatie.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
