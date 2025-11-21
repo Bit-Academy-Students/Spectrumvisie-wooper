@@ -12,15 +12,15 @@
     @include('layouts.header')
 
 
-    <section class="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20 px-4 sm:px-6 lg:px-8">
+    <section class="  bg-blue-600 text-white py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-4xl md:text-5xl mb-6">Word Autisme Trainer</h2>
             <p class="text-xl md:text-2xl mb-8 text-blue-100">
                 Word gecertificeerd Jouw Autisme Trainer!
             </p>
-            <a href="https://jouwautisme.nl" target="_blank"
+            <a href="https://jouwautisme.nl/bestel-de-jouw-autisme-methodiek/" target="_blank"
                 class="bg-white text-blue-600 hover:bg-gray-100 inline-flex items-center text-lg px-8 py-4 rounded-lg">
-                Schrijf je nu in →
+                Schrijf je nu in
             </a>
         </div>
     </section>
@@ -35,26 +35,6 @@
         </div>
 
         <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
-
-            <div class="border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition">
-                <div class="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-blue-600 text-3xl">
-                    ★
-                </div>
-                <h3 class="font-semibold text-lg">Erkend Certificaat</h3>
-                <p class="text-gray-600 mt-2">
-                    Ontvang een officieel erkend certificaat na het afronden van de opleiding.
-                </p>
-            </div>
-
-            <div class="border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition">
-                <div class="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-blue-600 text-3xl">
-                    👥
-                </div>
-                <h3 class="font-semibold text-lg">Expert Begeleiding</h3>
-                <p class="text-gray-600 mt-2">
-                    Word begeleid door ervaren professionals in het autisme vakgebied.
-                </p>
-            </div>
 
             <div class="border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition">
                 <div class="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-blue-600 text-3xl">
@@ -104,24 +84,6 @@
         </div>
     </section>
 
-
-    <section class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl mb-8 text-center">Toelatingseisen</h2>
-
-            <div class="border rounded-xl p-6">
-                <ul class="space-y-4 text-lg text-gray-700">
-                    <li>• Affiniteit met autisme en neurodiversiteit</li>
-                    <li>• Minimaal MBO-4 of HBO werk- en denkniveau</li>
-                    <li>• Goede communicatieve vaardigheden</li>
-                    <li>• Beschikbaarheid voor praktijkdagen en zelfstudie</li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-
-
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600 text-white">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl mb-4">Klaar om te Beginnen?</h2>
@@ -132,7 +94,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="https://jouwautisme.nl" target="_blank"
                     class="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4 rounded-lg inline-block">
-                    Schrijf je in →
+                    Schrijf je in
                 </a>
                 <a href="https://jouwautisme.nl" target="_blank"
                     class="border-2 border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-4 rounded-lg inline-block">
