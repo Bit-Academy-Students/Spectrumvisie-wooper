@@ -48,6 +48,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="role">Rol</label>
+                    <select id="role" name="role">
+                        <option value="trainer">Trainer</option>
+                        <option value="ouder">Ouder</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="password">Wachtwoord</label>
                     <input id="password" type="password" name="password">
                 </div>

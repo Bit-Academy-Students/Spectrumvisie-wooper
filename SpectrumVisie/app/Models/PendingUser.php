@@ -11,7 +11,8 @@ class PendingUser extends Model
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'role'
     ];
 
     // make password hidden so it doesnt get exposed when using things like "return PendingUser::all()"
