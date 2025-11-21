@@ -19,6 +19,10 @@ Route::get('/welcome', function () {
     return view('home');
 });
 
+Route::get('/trainer', function () {
+    return view('trainer');
+});
+
 
 Route::get('/home', function (PendingController $controller) {
     $users = $controller->ShowAllUsers();
