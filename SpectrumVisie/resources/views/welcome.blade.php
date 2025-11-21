@@ -1,35 +1,42 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&display=swap" rel="stylesheet">
-
-    <!-- Vite compiled CSS & JS -->
-    @vite('resources/css/general.css')
-
-
-    <title>Welcome</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="app-body">
+<body class="bg-gray-100 text-gray-900 antialiased">
+  <div class="min-h-screen flex flex-col items-center justify-center">
+    <h1 class="text-4xl font-bold">Welcome</h1>
+    <p class="mt-4 text-gray-600">Simple placeholder homepage</p>
 
-    <div class="welcome-container">
-        <button class="btn-primary">Click me</button>
+    <div class="mt-6 flex gap-4">
+      <a href="/login" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Login</a>
+      <a href="/register" class="px-4 py-2 border rounded-md">Register</a>
     </div>
 
 
-
-
-
-    <h2 class="orangeLight">test</h2>
-    <p class="orangeLight">test</p>
-
-    <p class="blue1Light ">test</p>
-
+    <table border="1" class="mt-4">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($users as $user)
+        <tr>
+          <td>{{ $user->id }}</td>
+          <td>{{ $user->name }}</td>
+          <td>{{ $user->email }}</td>
+        </tr>
+        @endforeach
+      </tbody>
+  </div>
 
 </body>
 
