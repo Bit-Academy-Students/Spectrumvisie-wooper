@@ -21,7 +21,7 @@ Route::get('/welcome', function () {
 
 
 Route::get('/home', function (PendingController $controller) {
-    $users = $controller->ShowAllUsers();
+    $users = $controller->ShowAllPendingUsers();
     return view('welcome', compact('users'));
 });
 
@@ -30,3 +30,4 @@ Route::post('/register', [RegisterController::class, 'Register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/upload', [MateriaalController::class, 'showUploadForm'])->name('upload.form');
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
+Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
