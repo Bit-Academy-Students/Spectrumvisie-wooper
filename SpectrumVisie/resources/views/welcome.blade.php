@@ -25,6 +25,8 @@
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -33,10 +35,20 @@
           <td>{{ $user->id }}</td>
           <td>{{ $user->name }}</td>
           <td>{{ $user->email }}</td>
+          <td>{{ $user->role }}</td>
+          <td>
+            <!-- Accept User Form -->
+            <form action="{{ route('pending.accept', $user->id) }}" method="POST">
+              @csrf
+              <button type="submit" class="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600">
+                Accept
+              </button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
-  </div>
+    </table>
 
 </body>
 

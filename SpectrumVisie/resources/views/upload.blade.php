@@ -38,8 +38,8 @@
         </div>
 
         <div class="mb-3">
-            <label>YouTube URL (optioneel)</label>
-            <input type="text" name="youtube_url" class="form-control">
+            <label>URL (optioneel)</label>
+            <input type="text" name="URL" class="form-control">
         </div>
 
         <div class="mb-3">
@@ -47,52 +47,83 @@
             <input type="file" name="file" class="form-control">
         </div>
 
+        <div class="mb-3">
+            <label>Wie mag dit materiaal bekijken? (meerdere mogelijk)</label>
+            <select name="can_view[]" class="form-control" multiple>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
+                @endforeach
+            </select>
+            <small>Ctrl/Cmd ingedrukt houden om meerdere te selecteren</small>
+        </div>
+
+        <div class="mb-3">
+            <label>Wie mag dit materiaal downloaden? (meerdere mogelijk)</label>
+            <select name="can_download[]" class="form-control" multiple>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <select name="category_id" class="form-control" required>
+            <option value="">-- Selecteer --</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">
+                    {{ $category->code }} - {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+
+
+
         <button class="btn btn-primary" type="submit">Upload</button>
     </form>
 
     @if (session('uploaded'))
-        @php $uploaded = session('uploaded'); @endphp
-        {{ $uploaded->title }}
-        {{ $uploaded->description }}
+        @php
+            $uploaded = session('uploaded');
+            $ext = $uploaded->file_path ? strtolower(pathinfo($uploaded->file_path, PATHINFO_EXTENSION)) : null;
+        @endphp
 
-        @if ($uploaded->youtube_url)
-            <div class="mt-2">
-                <h5>YouTube Video:</h5>
-                <iframe width="560" height="315"
-                    src="{{ $uploaded->youtube_url }}" frameborder="0"
-                    allowfullscreen></iframe>
-            </div>
+        <h3 class="mt-4">Geüpload Materiaal:</h3>
+
+        <p><strong>{{ $uploaded->title }}</strong></p>
+        <p>{{ $uploaded->description }}</p>
+
+        @if ($uploaded->materialType->type === 'youtube-link')
+            <h5>YouTube Video:</h5>
+            <iframe width="560" height="315" src="{{ $uploaded->URL }}" frameborder="0" allowfullscreen>
+            </iframe>
         @endif
 
+        @if ($uploaded->materialType->type === 'artikel')
+            <h5>Artikel Link:</h5>
+            <a href="{{ $uploaded->URL }}" target="_blank">{{ $uploaded->URL }}</a>
+        @endif
 
         @if ($uploaded->file_path)
             @php
                 $url = asset('storage/' . $uploaded->file_path);
-                $ext = strtolower(pathinfo($uploaded->file_path, PATHINFO_EXTENSION));
             @endphp
 
-            <div class="mt-3">
+            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                <h5>Afbeelding:</h5>
+                <img src="{{ $url }}" class="img-fluid rounded" style="max-width:300px;">
+            @elseif ($ext === 'mp4')
+                <h5>Video:</h5>
+                <video width="400" controls>
+                    <source src="{{ $url }}">
+                </video>
+            @elseif ($ext === 'pdf')
+                <h5>PDF:</h5>
+                <img src="{{ asset('storage/' . $uploaded->materialType->icon) }}" style="width:40px" alt="icon">
 
-                @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                    <h5>Afbeelding:</h5>
-                    <img src="{{ $url }}" class="img-fluid rounded" style="max-width:300px;">
-                @elseif($ext === 'mp4')
-                    <h5>Video:</h5>
-                    <video width="400" controls>
-                        <source src="{{ $url }}">
-                        Your browser does not support video playback.
-                    </video>
-                @elseif($ext === 'pdf')
-                    <h5>PDF:</h5>
-                    <embed src="{{ $url }}" type="application/pdf" width="100%" height="600px" />
-                @else
-                    <h5>Download Bestand:</h5>
-                    <a href="{{ $url }}" download>Download bestand</a>
-                @endif
-
-            </div>
+                <embed src="{{ $url }}" type="application/pdf" width="100%" height="600px" />
+            @else
+                <h5>Download Bestand:</h5>
+                <a href="{{ $url }}" download>Download bestand</a>
+            @endif
         @endif
-</div>
-@endif
-
-</div>
+    @endif
