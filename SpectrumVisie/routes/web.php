@@ -6,8 +6,9 @@ use App\Http\Controllers\PendingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriaalController;
 
-Route::get('/register', function () {
-    return view('register');
+Route::get('/register', function (RegisterController $controller) {
+    $roles = $controller->ShowRole();
+    return view('register', compact('roles'));
 });
 
 

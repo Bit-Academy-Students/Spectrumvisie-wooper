@@ -48,10 +48,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role">Rol</label>
-                    <select id="role" name="role">
-                        <option value="trainer">Trainer</option>
-                        <option value="ouder">Ouder</option>
+                    <label for="role_id">Rol</label>
+                    <select id="role_id" name="role_id">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">
+                                {{ $role->role_name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 

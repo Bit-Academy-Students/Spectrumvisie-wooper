@@ -25,6 +25,6 @@ class PendingController extends Controller
         ]);
 
         $pending->delete();
-        return response('message', "Je hebt {$pending->name} geregistreerd");
+        return redirect()->back()->with('success', "Je hebt {$pending->name} geregistreerd");
     }
 }
