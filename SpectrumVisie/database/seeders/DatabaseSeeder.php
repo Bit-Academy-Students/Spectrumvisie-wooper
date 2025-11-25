@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(MaterialTypeSeeder::class);
+
+        $this->call(CategorySeeder::class);
     }
 }

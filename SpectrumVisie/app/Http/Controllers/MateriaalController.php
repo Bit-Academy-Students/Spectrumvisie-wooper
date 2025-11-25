@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Roles;
 use App\Models\Materiaal;
 use App\Models\MaterialType;
 use Illuminate\Http\Request;
+use App\Models\MaterialAccess;
 
 class MateriaalController extends Controller
 {
     public function showUploadForm()
     {
-        $types = MaterialType::all();
-        return $types;
-
+        return [
+            'types' => MaterialType::all(),
+            'roles' => Roles::where('role_name', '!=', 'admin')->get(),
+            'categories' => Category::all()
+        ];
     }
-
     protected function youtubeEmbedUrl($url)
     {
         if (preg_match('/youtu\.be\/([^\?]+)/', $url, $matches)) {
@@ -35,8 +39,10 @@ class MateriaalController extends Controller
             'title' => 'nullable|string',
             'description' => 'required|string',
             'material_type_id' => 'required|exists:material_type,id',
+            'category_id' => 'required|exists:categories,id',
             'URL' => 'nullable|string',
             'file' => 'nullable|file|max:20480',
+
         ]);
 
         $filePath = null;
@@ -52,6 +58,7 @@ class MateriaalController extends Controller
             'artikel' => [],
         ];
 
+        // ---------- FILE VALIDATION ----------
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
@@ -76,7 +83,7 @@ class MateriaalController extends Controller
             }
         }
 
-
+        // ---------- URL HANDLING ----------
         $finalUrl = null;
 
         if ($type === 'youtube-link') {
@@ -98,16 +105,51 @@ class MateriaalController extends Controller
             $finalUrl = $validated['URL'];
         }
 
+        // ---------- SAVE MATERIAL ----------
         $materiaal = Materiaal::create([
             'title' => $validated['title'] ?? null,
             'description' => $validated['description'],
             'material_type_id' => $validated['material_type_id'],
+            'category_id' => $validated['category_id'],
             'URL' => $finalUrl,
             'file_path' => $filePath,
         ]);
 
+        // ---------- SAVE PERMISSIONS ----------
+        $this->savePermissions(
+            $materiaal->id,
+            $request->can_view ?? [],
+            $request->can_download ?? []
+        );
+
         return back()
             ->with('success', 'Upload succesvol!')
             ->with('uploaded', $materiaal->load('materialType'));
+    }
+
+    private function savePermissions($materialId, $viewRoles, $downloadRoles)
+    {
+        $roles = array_unique(array_merge($viewRoles, $downloadRoles));
+
+        foreach ($roles as $roleId) {
+            MaterialAccess::updateOrCreate(
+                [
+                    'materiaal_id' => $materialId,
+                    'role_id' => $roleId
+                ],
+                [
+                    'can_view' => in_array($roleId, $viewRoles),
+                    'can_download' => in_array($roleId, $downloadRoles)
+                ]
+            );
+        }
+
+        $admin = Roles::where('role_name', 'admin')->first();
+        if ($admin) {
+            MaterialAccess::updateOrCreate(
+                ['materiaal_id' => $materialId, 'role_id' => $admin->id],
+                ['can_view' => true, 'can_download' => true]
+            );
+        }
     }
 }

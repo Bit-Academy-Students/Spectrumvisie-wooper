@@ -47,11 +47,11 @@
             <input type="file" name="file" class="form-control">
         </div>
 
-        {{-- <div class="mb-3">
+        <div class="mb-3">
             <label>Wie mag dit materiaal bekijken? (meerdere mogelijk)</label>
             <select name="can_view[]" class="form-control" multiple>
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                    <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
                 @endforeach
             </select>
             <small>Ctrl/Cmd ingedrukt houden om meerdere te selecteren</small>
@@ -61,10 +61,21 @@
             <label>Wie mag dit materiaal downloaden? (meerdere mogelijk)</label>
             <select name="can_download[]" class="form-control" multiple>
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                    <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
                 @endforeach
             </select>
-        </div> --}}
+        </div>
+
+        <select name="category_id" class="form-control" required>
+            <option value="">-- Selecteer --</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">
+                    {{ $category->code }} - {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+
 
 
         <button class="btn btn-primary" type="submit">Upload</button>

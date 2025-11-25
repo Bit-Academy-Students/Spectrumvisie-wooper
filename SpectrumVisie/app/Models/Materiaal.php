@@ -15,6 +15,7 @@ class Materiaal extends Model
         'title',
         'description',
         'material_type_id',
+        'category_id',
         'URL',
         'file_path',
         'uploaded_at',
