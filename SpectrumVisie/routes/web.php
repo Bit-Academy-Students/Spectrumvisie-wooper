@@ -20,19 +20,21 @@ Route::get('/welcome', function () {
     return view('home');
 });
 
-// Route::get('/upload', function (MateriaalController $controller) {
-//     $data = $controller->showUploadForm();
-//     return view('upload', compact('data'));
-// });
 
 Route::get('/upload', function (MateriaalController $controller) {
-    $data = $controller->showUploadForm();
+    $data = $controller->showAll();
 
     return view('upload', [
         'types' => $data['types'],
         'roles' => $data['roles'],
         'categories' => $data['categories'],
     ]);
+});
+
+Route::get('/platform', function (MateriaalController $controller) {
+    $data = $controller->showAll();
+
+    return view('platform', compact('data'));
 });
 
 
