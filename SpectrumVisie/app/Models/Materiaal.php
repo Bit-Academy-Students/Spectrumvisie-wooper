@@ -15,13 +15,19 @@ class Materiaal extends Model
         'title',
         'description',
         'material_type_id',
-        'youtube_url',
+        'category_id',
+        'URL',
         'file_path',
         'uploaded_at',
     ];
 
-    public function type()
+    public function materialType()
     {
         return $this->belongsTo(MaterialType::class, 'material_type_id');
+    }
+
+    public function accesses()
+    {
+        return $this->hasMany(MaterialAccess::class);
     }
 }

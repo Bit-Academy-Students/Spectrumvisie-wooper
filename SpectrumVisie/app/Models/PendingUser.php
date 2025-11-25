@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Roles;
 
 class PendingUser extends Model
 {
@@ -11,7 +12,8 @@ class PendingUser extends Model
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'role_id'
     ];
 
     // make password hidden so it doesnt get exposed when using things like "return PendingUser::all()"
@@ -19,4 +21,10 @@ class PendingUser extends Model
     protected $hidden = [
         'password',
     ];
+
+
+    public function roles()
+    {
+        return $this->belongsTo(Roles::class);
+    }
 }

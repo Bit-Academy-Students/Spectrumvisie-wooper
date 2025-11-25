@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('material_type', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['pdf', 'word', 'video', 'youtube-link', 'artikel']);
-            $table->string('icon');
-
+            $table->string('code');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('material_type');
+        Schema::dropIfExists('categories');
     }
 };

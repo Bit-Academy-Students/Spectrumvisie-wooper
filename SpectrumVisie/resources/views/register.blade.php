@@ -48,6 +48,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="role_id">Rol</label>
+                    <select id="role_id" name="role_id">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">
+                                {{ $role->role_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="password">Wachtwoord</label>
                     <input id="password" type="password" name="password">
                 </div>
