@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('role_id');
             $table->boolean('can_view');
             $table->boolean('can_download');
-
+            
             $table->timestamps();
         });
     }

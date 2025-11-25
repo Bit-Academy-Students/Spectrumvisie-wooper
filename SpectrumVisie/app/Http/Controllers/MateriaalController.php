@@ -11,7 +11,8 @@ class MateriaalController extends Controller
     public function showUploadForm()
     {
         $types = MaterialType::all();
-        return view('upload', compact('types'));
+        return $types;
+
     }
 
     protected function youtubeEmbedUrl($url)

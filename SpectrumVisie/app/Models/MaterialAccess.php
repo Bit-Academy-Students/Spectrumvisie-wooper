@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class MaterialAccess extends Model
 {
     use HasFactory;
-
+    
     protected $table = 'material_access';
 
     protected $fillable = [
