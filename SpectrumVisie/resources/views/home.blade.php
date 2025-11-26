@@ -14,7 +14,7 @@
 
     <main class="flex-1">
 
-        <section id="home" class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden">
+        <section id="home" class="relative bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6">
@@ -131,7 +131,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="relative order-2 lg:order-1">
-                        <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-slate-200">
+                        <div class="aspect-4/3 rounded-2xl overflow-hidden shadow-xl bg-slate-200">
                             <img
                                 src="https://images.unsplash.com/photo-1565373086464-c8af0d586c0c?auto=format&fit=crop&w=1200&q=80"
                                 alt="Learning support"
@@ -173,7 +173,7 @@
 
                             @foreach($features as $feature)
                             <div class="flex items-center gap-3">
-                                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                <div class="shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
                                     <span class="text-green-600 text-xs">✔</span>
                                 </div>
                                 <span class="text-gray-700">{{ $feature }}</span>
