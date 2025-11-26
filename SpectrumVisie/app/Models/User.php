@@ -51,6 +51,8 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo(Roles::class);
+        //Put role_id behind it becouse of the way laravel checks for fk
+        //it checks the name of the model and searches for model namd + id but the db is named roles
+        return $this->belongsTo(Roles::class, 'role_id');
     }
 }
