@@ -21,10 +21,17 @@ class PendingController extends Controller
             'name' => $pending->name,
             'email' => $pending->email,
             'password' => $pending->password,
-            'role' => $pending->role
+            'role_id' => $pending->role_id
         ]);
 
         $pending->delete();
         return redirect()->back()->with('success', "Je hebt {$pending->name} geregistreerd");
+    }
+
+    public function RejectUser($id)
+    {
+        $pending = PendingUser::findOrFail($id);
+        $pending->delete();
+        return redirect()->back()->with('success', "Je hebt {$pending->name} verwijderd");
     }
 }
