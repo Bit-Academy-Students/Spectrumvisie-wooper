@@ -1,26 +1,25 @@
 <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-            <div class="flex items-start flex-shrink-0">
+            <div class="flex items-start shrink-0">
                 <a href="{{ url('/') }}" class="flex items-center">
                     <img
                         src="{{ asset('images/JouwAutismeLogo.png') }}"
                         alt="Jouwautisme.nl"
-                        class="h-10 w-auto"
-                    >
+                        class="h-10 w-auto">
                 </a>
             </div>
 
             <div class="hidden md:flex flex-1 justify-center">
                 <div class="flex items-center gap-8 text-sm">
                     <a href="{{ url('/') }}"
-                       class="text-gray-700 hover:text-blue-600 transition-colors">
+                        class="text-gray-700 hover:text-blue-600 transition-colors">
                         Home
                     </a>
 
                     <div class="relative group">
                         <button type="button"
-                                class="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors">
+                            class="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors">
                             <span>Trainers</span>
                             <span class="text-xs">▾</span>
                         </button>
@@ -28,23 +27,23 @@
                         <div
                             class="absolute left-0 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg py-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity">
                             <a href="{{ url('/word-trainer') }}"
-                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                 Word trainer
                             </a>
                             <a href="{{ url('/trainers-info') }}"
-                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                 Informatie voor trainers
                             </a>
                         </div>
                     </div>
 
                     <a href="{{ url('/nieuws') }}"
-                       class="text-gray-700 hover:text-blue-600 transition-colors">
+                        class="text-gray-700 hover:text-blue-600 transition-colors">
                         Nieuws
                     </a>
 
                     <a href="{{ url('/contact') }}"
-                       class="text-gray-700 hover:text-blue-600 transition-colors">
+                        class="text-gray-700 hover:text-blue-600 transition-colors">
                         Contact
                     </a>
                 </div>
@@ -55,21 +54,19 @@
                     <button
                         type="button"
                         class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                        data-user-menu-toggle
-                    >
+                        data-user-menu-toggle>
                         <span class="sr-only">Open gebruikersmenu</span>
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                  d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                                d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                  d="M6 20a6 6 0 1 1 12 0H6z" />
+                                d="M6 20a6 6 0 1 1 12 0H6z" />
                         </svg>
                     </button>
 
                     <div
                         class="hidden absolute right-0 mt-2 w-44 rounded-md bg-white shadow-lg ring-1 ring-black/5 py-1 text-sm"
-                        data-user-menu
-                    >
+                        data-user-menu>
                         <a href="{{ url('/login') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
                             Inloggen
                         </a>
@@ -82,12 +79,11 @@
                 <button
                     type="button"
                     class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    data-mobile-menu-toggle
-                >
+                    data-mobile-menu-toggle>
                     <span class="sr-only">Open navigatie</span>
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                              d="M4 6h16M4 12h16M4 18h16" />
+                            d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
             </div>
