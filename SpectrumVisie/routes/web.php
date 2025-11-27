@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriaalController;
+use App\Http\Controllers\OverzichtController;
 
 Route::get('/register', function (RegisterController $controller) {
     $roles = $controller->ShowRole();
@@ -37,6 +38,14 @@ Route::get('/platform', function (MateriaalController $controller) {
     return view('platform', compact('data'));
 });
 
+Route::get('/category/{id}', function ($id, OverzichtController $controller) {
+    $data = $controller->showCategory($id);
+
+    return view('category', [
+        'category' => $data['category'],
+        'materiaal' => $data['materiaal'],
+    ]);
+});
 
 Route::get('/home', function (PendingController $controller) {
     $users = $controller->ShowAllPendingUsers();
@@ -44,7 +53,6 @@ Route::get('/home', function (PendingController $controller) {
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
-
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
