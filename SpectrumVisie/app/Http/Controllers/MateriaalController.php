@@ -11,12 +11,13 @@ use App\Models\MaterialAccess;
 
 class MateriaalController extends Controller
 {
-    public function showUploadForm()
+    public function showAll()
     {
         return [
             'types' => MaterialType::all(),
             'roles' => Roles::where('role_name', '!=', 'admin')->get(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'materiaal' => Materiaal::all()
         ];
     }
     protected function youtubeEmbedUrl($url)
@@ -28,7 +29,6 @@ class MateriaalController extends Controller
         } else {
             return null;
         }
-
         return "https://www.youtube.com/embed/$id";
     }
 
