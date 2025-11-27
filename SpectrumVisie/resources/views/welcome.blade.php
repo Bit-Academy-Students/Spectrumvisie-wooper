@@ -33,13 +33,19 @@
             <td>{{ $user->id }}</td>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
-            <td>{{ $user->role }}</td>
-            <td>
-                <!-- Accept User Form -->
-                <form action="{{ route('pending.accept', $user->id) }}" method="POST">
+            <td>{{ $user->roles->role_name }}</td>
+            <td><form action="{{ route('pending.accept', $user->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600">
                         Accept
+                    </button>
+                </form>
+            </td>
+
+            <td><form action="{{ route('pending.reject', $user->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                        Reject
                     </button>
                 </form>
             </td>

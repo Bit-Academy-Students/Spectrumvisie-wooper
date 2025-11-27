@@ -56,3 +56,4 @@ Route::post('/register', [RegisterController::class, 'Register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
+Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
