@@ -18,7 +18,17 @@ class OverzichtController extends Controller
 
         return [
             'category' => Category::findOrFail($id),
-            'materiaal' => Materiaal::where('category_id', $id)->get(),
+            'materiaal' => Materiaal::where('category_id', $id)->with(['materialType', 'access'])->get(),
         ];
+    }
+
+    public function view()
+    {
+
+    }
+
+    public function download()
+    {
+
     }
 }

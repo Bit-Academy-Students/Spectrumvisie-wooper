@@ -12,7 +12,6 @@ Route::get('/register', function (RegisterController $controller) {
     return view('register', compact('roles'));
 });
 
-
 Route::get('/login', function () {
     return view('login');
 });
@@ -20,7 +19,6 @@ Route::get('/login', function () {
 Route::get('/welcome', function () {
     return view('home');
 });
-
 
 Route::get('/upload', function (MateriaalController $controller) {
     $data = $controller->showAll();
@@ -46,6 +44,12 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
         'materiaal' => $data['materiaal'],
     ]);
 });
+
+Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
+    ->name('materials.view');
+
+Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
+    ->name('materials.download');
 
 Route::get('/home', function (PendingController $controller) {
     $users = $controller->ShowAllPendingUsers();
