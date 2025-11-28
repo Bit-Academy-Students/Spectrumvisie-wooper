@@ -105,21 +105,6 @@
     </section>
 
 
-    <section class="py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl mb-8 text-center">Toelatingseisen</h2>
-
-            <div class="border rounded-xl p-6">
-                <ul class="space-y-4 text-lg text-gray-700">
-                    <li>• Affiniteit met autisme en neurodiversiteit</li>
-                    <li>• Minimaal MBO-4 of HBO werk- en denkniveau</li>
-                    <li>• Goede communicatieve vaardigheden</li>
-                    <li>• Beschikbaarheid voor praktijkdagen en zelfstudie</li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
 
 
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600 text-white">

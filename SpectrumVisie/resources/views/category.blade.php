@@ -13,11 +13,11 @@
         $userRole = auth()->user()->role_id;
     @endphp
     <ul class="mb-0">
-        <li>current category: {{ $category->name }}
+        <li>current category: {{ $data['category']->name }}
         </li>
     </ul>
     <ul class="mb-0">
-        @foreach ($materiaal as $item)
+        @foreach ($data['materiaal'] as $item)
         @php $hasAccess = $item->access->where('role_id', $userRole)->first() @endphp
         <li>
                 <h3>{{ $item->title }}</h3>

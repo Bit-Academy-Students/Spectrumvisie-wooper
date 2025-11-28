@@ -20,11 +20,7 @@ Route::get('/login', function () {
 Route::get('/upload', function (MateriaalController $controller) {
     $data = $controller->showAll();
 
-    return view('upload', [
-        'types' => $data['types'],
-        'roles' => $data['roles'],
-        'categories' => $data['categories'],
-    ]);
+    return view('upload', compact('data'));
 });
 
 
@@ -37,10 +33,7 @@ Route::get('/platform', function (MateriaalController $controller) {
 Route::get('/category/{id}', function ($id, OverzichtController $controller) {
     $data = $controller->showCategory($id);
 
-    return view('category', [
-        'category' => $data['category'],
-        'materiaal' => $data['materiaal'],
-    ]);
+    return view('category', compact('data'));
 });
 
 Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
