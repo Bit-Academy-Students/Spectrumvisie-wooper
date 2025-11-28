@@ -21,14 +21,6 @@ class MateriaalController extends Controller
         ];
     }
 
-    /**
-     * Converteert een YouTube-URL naar een embed-URL.
-     * Ondersteunt o.a.:
-     *  - https://youtu.be/VIDEOID
-     *  - https://www.youtube.com/watch?v=VIDEOID
-     *  - https://www.youtube.com/shorts/VIDEOID
-     *  - https://www.youtube.com/embed/VIDEOID
-     */
     protected function youtubeEmbedUrl($url)
     {
         $pattern = '~(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]+)~';

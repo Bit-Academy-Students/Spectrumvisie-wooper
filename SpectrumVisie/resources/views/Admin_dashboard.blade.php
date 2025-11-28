@@ -326,7 +326,7 @@
                                         value="{{ $category->id }}"
                                         @selected(old('category_id') == $category->id)
                                     >
-                                        {{ $category->name }}
+                                        {{ $category->code }} - {{ $category->name }}
                                     </option>
                                 @endforeach
                             </select>

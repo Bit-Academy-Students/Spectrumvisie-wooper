@@ -31,7 +31,7 @@
             <label>Materiaal Type</label>
             <select name="material_type_id" class="form-control" required>
                 <option value="">-- Selecteer --</option>
-                @foreach ($types as $type)
+                @foreach ($data['types'] as $type)
                     <option value="{{ $type->id }}">{{ ucfirst($type->type) }}</option>
                 @endforeach
             </select>
@@ -50,7 +50,7 @@
         <div class="mb-3">
             <label>Wie mag dit materiaal bekijken? (meerdere mogelijk)</label>
             <select name="can_view[]" class="form-control" multiple>
-                @foreach ($roles as $role)
+                @foreach ($data['roles'] as $role)
                     <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
                 @endforeach
             </select>
@@ -60,7 +60,7 @@
         <div class="mb-3">
             <label>Wie mag dit materiaal downloaden? (meerdere mogelijk)</label>
             <select name="can_download[]" class="form-control" multiple>
-                @foreach ($roles as $role)
+                @foreach ($data['roles'] as $role)
                     <option value="{{ $role->id }}">{{ ucfirst($role->role_name) }}</option>
                 @endforeach
             </select>
@@ -68,7 +68,7 @@
 
         <select name="category_id" class="form-control" required>
             <option value="">-- Selecteer --</option>
-            @foreach ($categories as $category)
+            @foreach ($data['categories'] as $category)
                 <option value="{{ $category->id }}">
                     {{ $category->code }} - {{ $category->name }}
                 </option>

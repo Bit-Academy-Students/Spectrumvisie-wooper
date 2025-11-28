@@ -16,6 +16,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/trainer', function () {
+    return view('trainer');
+});
+
 Route::get('/welcome', function () {
     return view('home');
 });
@@ -23,15 +27,11 @@ Route::get('/welcome', function () {
 Route::get('/upload', function (MateriaalController $controller) {
     $data = $controller->showAll();
 
-    return view('upload', [
-        'types' => $data['types'],
-        'roles' => $data['roles'],
-        'categories' => $data['categories'],
-    ]);
+    return view('upload', compact('data'));
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/welcome', function () {
+    return view('home');
 });
 
 Route::get('/platform', function (MateriaalController $controller) {
@@ -43,10 +43,7 @@ Route::get('/platform', function (MateriaalController $controller) {
 Route::get('/category/{id}', function ($id, OverzichtController $controller) {
     $data = $controller->showCategory($id);
 
-    return view('category', [
-        'category' => $data['category'],
-        'materiaal' => $data['materiaal'],
-    ]);
+    return view('category', compact('data'));
 });
 
 Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
@@ -55,9 +52,9 @@ Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
 
-Route::get('/', function (PendingController $controller) {
+Route::get('/home', function (PendingController $controller) {
     $users = $controller->ShowAllPendingUsers();
-    return view('home', compact('users'));
+    return view('welcome', compact('users'));
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
@@ -69,7 +66,7 @@ Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->n
 Route::get('/admin/dashboard', function (MateriaalController $controller) {
     $data = $controller->showAll();
 
-    return view('admin_dashboard', [
+    return view('Admin_dashboard', [
         'types'      => $data['types'],
         'roles'      => $data['roles'],
         'categories' => $data['categories'],
