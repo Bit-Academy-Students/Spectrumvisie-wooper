@@ -9,13 +9,30 @@
 </head>
 
 <body>
+    @php
+        $userRole = auth()->user()->role_id;
+    @endphp
     <ul class="mb-0">
         <li>current category: {{ $category->name }}
         </li>
     </ul>
     <ul class="mb-0">
         @foreach ($materiaal as $item)
-            <li>{{ $item->title }}<br>{{ $item->description }}</li>
+        @php $hasAccess = $item->access->where('role_id', $userRole)->first() @endphp
+        <li>
+                <h3>{{ $item->title }}</h3>
+                <p>Type: {{ $item->materialType->type }}</p>
+
+                <strong>Toegang:</strong>
+
+                @if ($hasAccess && $hasAccess->can_view)
+                    <a href="{{ route('materials.view', $item->id) }}">View</a>
+                @endif
+
+                @if ($hasAccess && $hasAccess->can_download)
+                    <a href="{{ route('materials.download', $item->id) }}">Download</a>
+                @endif
+            </li>
         @endforeach
     </ul>
 </body>

@@ -26,9 +26,9 @@ class Materiaal extends Model
         return $this->belongsTo(MaterialType::class, 'material_type_id');
     }
 
-    public function accesses()
+    public function access()
     {
-        return $this->hasMany(MaterialAccess::class);
+        return $this->hasMany(MaterialAccess::class, 'materiaal_id');
     }
 
         public function category()

@@ -16,6 +16,20 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/welcome', function () {
+    return view('home');
+});
+
+Route::get('/upload', function (MateriaalController $controller) {
+    $data = $controller->showAll();
+
+    return view('upload', [
+        'types' => $data['types'],
+        'roles' => $data['roles'],
+        'categories' => $data['categories'],
+    ]);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,6 +48,12 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
         'materiaal' => $data['materiaal'],
     ]);
 });
+
+Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
+    ->name('materials.view');
+
+Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
+    ->name('materials.download');
 
 Route::get('/', function (PendingController $controller) {
     $users = $controller->ShowAllPendingUsers();
@@ -56,4 +76,3 @@ Route::get('/admin/dashboard', function (MateriaalController $controller) {
         'materiaal'  => $data['materiaal'],
     ]);
 })->name('admin.dashboard');
-
