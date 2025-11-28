@@ -16,9 +16,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/welcome', function () {
-    return view('home');
-});
 
 Route::get('/upload', function (MateriaalController $controller) {
     $data = $controller->showAll();
@@ -30,9 +27,6 @@ Route::get('/upload', function (MateriaalController $controller) {
     ]);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/platform', function (MateriaalController $controller) {
     $data = $controller->showAll();
@@ -55,9 +49,8 @@ Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
 
-Route::get('/', function (PendingController $controller) {
-    $users = $controller->ShowAllPendingUsers();
-    return view('home', compact('users'));
+Route::get('/', function () {
+    return view('home');
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
