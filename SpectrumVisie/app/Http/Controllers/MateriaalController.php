@@ -86,7 +86,7 @@ class MateriaalController extends Controller
                     ->withInput();
             }
 
-            $filePath = $file->store('materials', 'public');
+            $filePath = $file->store('materials', 'private');
         } else {
             if (!in_array($type, ['youtube-link', 'artikel'], true)) {
                 return back()
