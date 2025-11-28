@@ -30,6 +30,10 @@ Route::get('/upload', function (MateriaalController $controller) {
     ]);
 });
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/platform', function (MateriaalController $controller) {
     $data = $controller->showAll();
 
@@ -51,9 +55,9 @@ Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
 
-Route::get('/home', function (PendingController $controller) {
+Route::get('/', function (PendingController $controller) {
     $users = $controller->ShowAllPendingUsers();
-    return view('welcome', compact('users'));
+    return view('home', compact('users'));
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
@@ -61,3 +65,14 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
+
+Route::get('/admin/dashboard', function (MateriaalController $controller) {
+    $data = $controller->showAll();
+
+    return view('admin_dashboard', [
+        'types'      => $data['types'],
+        'roles'      => $data['roles'],
+        'categories' => $data['categories'],
+        'materiaal'  => $data['materiaal'],
+    ]);
+})->name('admin.dashboard');
