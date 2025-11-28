@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('role_name');
         });
 
+
+        Schema::create('certificate', function (Blueprint $table) {
+            $table->id();
+            $table->string('certificate_code');
+        });
+
         Schema::create('users_pending', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -58,10 +64,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('certificate');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('users_pending');
-        Schema::dropIfExists('role');
+        Schema::dropIfExists('roles');
     }
 };

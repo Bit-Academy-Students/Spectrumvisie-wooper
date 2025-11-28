@@ -16,13 +16,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/trainer', function () {
-    return view('trainer');
-});
-
-Route::get('/welcome', function () {
-    return view('home');
-});
 
 Route::get('/upload', function (MateriaalController $controller) {
     $data = $controller->showAll();
@@ -30,9 +23,6 @@ Route::get('/upload', function (MateriaalController $controller) {
     return view('upload', compact('data'));
 });
 
-Route::get('/welcome', function () {
-    return view('home');
-});
 
 Route::get('/platform', function (MateriaalController $controller) {
     $data = $controller->showAll();
@@ -52,9 +42,8 @@ Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
 
-Route::get('/home', function (PendingController $controller) {
-    $users = $controller->ShowAllPendingUsers();
-    return view('welcome', compact('users'));
+Route::get('/', function () {
+    return view('home');
 });
 
 Route::post('/register', [RegisterController::class, 'Register']);
@@ -63,13 +52,9 @@ Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.pos
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
 
-Route::get('/admin/dashboard', function (MateriaalController $controller) {
+Route::get('/admin/dashboard', function (MateriaalController $controller, PendingController $UserController) {
     $data = $controller->showAll();
+    $UserData = $UserController->ShowAllPendingUsers();
 
-    return view('Admin_dashboard', [
-        'types'      => $data['types'],
-        'roles'      => $data['roles'],
-        'categories' => $data['categories'],
-        'materiaal'  => $data['materiaal'],
-    ]);
+    return view('Admin_dashboard', compact('data', 'UserData'));
 })->name('admin.dashboard');
