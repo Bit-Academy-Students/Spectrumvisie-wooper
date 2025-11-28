@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        @forelse($materiaal as $material)
+                        @forelse($data['materiaal'] as $material)
                             @php
                                 $type = strtolower(optional($material->materialType)->type ?? '');
                                 $typeLabel = match ($type) {
@@ -299,7 +299,7 @@
                                 required
                             >
                                 <option value="">-- Selecteer --</option>
-                                @foreach ($types as $type)
+                                @foreach ($data['types'] as $type)
                                     <option
                                         value="{{ $type->id }}"
                                         data-type="{{ $type->type }}"
@@ -321,7 +321,7 @@
                                 required
                             >
                                 <option value="">-- Selecteer een categorie --</option>
-                                @foreach ($categories as $category)
+                                @foreach ($data['categories'] as $category)
                                     <option
                                         value="{{ $category->id }}"
                                         @selected(old('category_id') == $category->id)
@@ -394,7 +394,7 @@
                                     <span class="text-center">Mag downloaden</span>
                                 </div>
 
-                                @forelse($roles as $role)
+                                @forelse($data['roles'] as $role)
                                     <div class="grid grid-cols-[2fr,1fr,1fr] items-center px-4 py-2 text-sm border-t border-gray-100">
                                         <span>{{ ucfirst($role->role_name) }}</span>
                                         <span class="flex justify-center">
@@ -461,19 +461,28 @@
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
-                                <tr>
-                                    <td class="px-4 py-3">Jan Jansen</td>
-                                    <td class="px-4 py-3">jan@example.com</td>
-                                    <td class="px-4 py-3">Trainer</td>
-                                    <td class="px-4 py-3 text-right space-x-3">
-                                        <button class="text-indigo-600 hover:text-indigo-800 text-xs">
-                                            Bewerken
-                                        </button>
-                                        <button class="text-red-600 hover:text-red-800 text-xs">
-                                            Blokkeren
-                                        </button>
-                                    </td>
-                                </tr>
+                                    @foreach($UserData as $user)
+                                        <tr>
+                                            <td class="px-4 py-3">{{ $user->name }}</td>
+                                            <td class="px-4 py-3">{{ $user->email }}</td>
+                                            <td class="px-4 py-3">{{ $user->roles->role_name }}</td>
+                                            <td class="px-4 py-3 text-right space-x-3">
+                                                <form action="{{ route('pending.accept', $user->id) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    <button type="submit" class="text-indigo-600 hover:text-indigo-800 text-xs">
+                                                        Accepteren
+                                                    </button>
+                                                </form>
+
+                                                <form action="{{ route('pending.reject', $user->id) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    <button type="submit" class="text-red-600 hover:text-red-800 text-xs">
+                                                        Afwijzen
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 <!-- foreach voor users trainers en admin enzo -->
                                 </tbody>
                             </table>
