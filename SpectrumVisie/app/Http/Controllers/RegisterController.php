@@ -6,6 +6,7 @@ use App\Models\PendingUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Roles;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -21,10 +22,14 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|unique:users,email|unique:users_pending,email',
             'password' => 'required|string|min:6|confirmed',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'certificate_code' => 'required|string'
         ]);
 
-
+        // If the user submited the wrong certificate_code give back a error
+        if (!DB::table('certificate')->where('certificate_code', $request->certificate_code)->exists()) {
+            return back()->with('error', 'verkeerde cerficaat code');
+        }
         PendingUser::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -32,6 +37,6 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/register')->with('succes', 'login succesfull');
+        return redirect('/home')->with('succes', 'login succesfull');
     }
 }
