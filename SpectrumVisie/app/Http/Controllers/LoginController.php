@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
 
-            'email' => 'Invalid information',
+            'email' => 'Verkeerde inloggegevens',
 
         ]);
     }
