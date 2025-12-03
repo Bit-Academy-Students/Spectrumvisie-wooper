@@ -29,7 +29,7 @@
                     <a href="{{ route('materials.view', $item->id) }}">View</a>
                 @endif
 
-                @if ($hasAccess && $hasAccess->can_download)
+                @if ($hasAccess && $hasAccess->can_download && !in_array($item->material_type_id, [4, 5]))
                     <a href="{{ route('materials.download', $item->id) }}">Download</a>
                 @endif
             </li>
