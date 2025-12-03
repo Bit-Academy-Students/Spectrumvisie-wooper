@@ -200,7 +200,8 @@
 
                                         <button
                                             type="button"
-                                            class="p-2 rounded-full border border-gray-200 text-gray-600 hover:bg-gray-50 open-access-modal"
+                                            class="p-2 rounded-full border border-gray-200 text-gray-600 hover:bg-gray-50"
+                                            id="openAccessModal"
                                         >
                                             <svg
                                                 class="h-4 w-4"
