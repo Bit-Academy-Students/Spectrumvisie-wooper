@@ -40,7 +40,7 @@ class OverzichtController extends Controller
             return redirect('platform');
         }
 
-        return $item->load('materialType');
+        return $item;
 
     }
 

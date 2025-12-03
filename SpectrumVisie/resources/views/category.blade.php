@@ -13,7 +13,7 @@
         $userRole = auth()->user()->role_id;
     @endphp
     <ul class="mb-0">
-        <li>current category: {{ $data['category']->name }}
+        <li>Huidige categorie: {{ $data['category']->name }}
         </li>
     </ul>
     <ul class="mb-0">
@@ -24,13 +24,13 @@
                 <p>Type: {{ $item->materialType->type }}</p>
 
                 <strong>Toegang:</strong>
-
+            
                 @if ($hasAccess && $hasAccess->can_view)
-                    <a href="{{ route('materials.view', $item->id) }}">View</a>
+                    <a href="{{ route('materials.view', $item->id) }}">Bekijken</a>
                 @endif
 
                 @if ($hasAccess && $hasAccess->can_download && !in_array($item->material_type_id, [4, 5]))
-                    <a href="{{ route('materials.download', $item->id) }}">Download</a>
+                    <a href="{{ route('materials.download', $item->id) }}">Downloaden</a>
                 @endif
             </li>
         @endforeach
