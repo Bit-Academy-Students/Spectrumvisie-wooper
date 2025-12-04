@@ -23,11 +23,6 @@ class OverzichtController extends Controller
         ];
     }
 
-    public function showMaterial($id)
-    {
-        return;
-    }
-
     public function userHasAccess($id, $rights)
     {
         $userRole = Auth::user()->role_id;
@@ -40,6 +35,13 @@ class OverzichtController extends Controller
 
     public function view($id) {
         $item = $this->userHasAccess($id, 'can_view');
+
+        if (!$item) {
+            return redirect('platform');
+        }
+
+        return $item;
+
     }
 
     public function download($id)

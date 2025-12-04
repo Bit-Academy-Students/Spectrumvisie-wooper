@@ -37,8 +37,11 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
     return view('category', compact('data'));
 });
 
-Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
-    ->name('materials.view');
+Route::get('/materials/view/{id}', function ($id, OverzichtController $controller) {
+    $item = $controller->view($id);
+
+    return view ('view', compact('item'));
+})->name('materials.view');
 
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
