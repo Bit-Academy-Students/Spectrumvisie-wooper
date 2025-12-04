@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="nl">
+
 <head>
     <meta charset="utf-8">
     <title>JouwAutisme – Home</title>
@@ -7,6 +8,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="min-h-screen bg-background text-foreground flex flex-col">
     @include('layouts.header')
 
@@ -31,14 +33,14 @@
 
                         <div class="flex flex-col sm:flex-row gap-4">
                             <a href="#materiaal"
-                               class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
+                                class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
                                       bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                                 Start hier
                                 <span class="ml-2 text-lg">➜</span>
                             </a>
 
-                            <a href="#over"
-                               class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
+                            <a href="#about"
+                                class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
                                       border border-gray-300 text-gray-800 bg-white hover:bg-gray-50 transition-colors">
                                 Meer informatie
                             </a>
@@ -65,8 +67,7 @@
                             <img
                                 src="https://jouwautisme.nl/wp-content/uploads/2025/03/Tieners-Bew-Iconen-vierkant-600x600.jpg"
                                 alt="Community support"
-                                class="w-full h-full object-cover"
-                            >
+                                class="w-full h-full object-cover">
                         </div>
 
                         <div class="pointer-events-none absolute -top-4 -right-4 w-24 h-24 bg-blue-200 rounded-full opacity-50 blur-2xl"></div>
@@ -134,8 +135,7 @@
                             <img
                                 src="https://images.unsplash.com/photo-1565373086464-c8af0d586c0c?auto=format&fit=crop&w=1200&q=80"
                                 alt="Learning support"
-                                class="w-full h-full object-cover"
-                            >
+                                class="w-full h-full object-cover">
                         </div>
                     </div>
 
@@ -161,28 +161,28 @@
 
                         <div class="space-y-3 text-sm sm:text-base">
                             @php
-                                $features = [
-                                    'Evidence-based informatie en methoden',
-                                    'Persoonlijke begeleiding en ondersteuning',
-                                    'Toegang tot een netwerk van professionals',
-                                    'Hulpmiddelen voor het hele gezin',
-                                    'Regelmatige workshops en webinars',
-                                ];
+                            $features = [
+                            'Evidence-based informatie en methoden',
+                            'Persoonlijke begeleiding en ondersteuning',
+                            'Toegang tot een netwerk van professionals',
+                            'Hulpmiddelen voor het hele gezin',
+                            'Regelmatige workshops en webinars',
+                            ];
                             @endphp
 
                             @foreach($features as $feature)
-                                <div class="flex items-center gap-3">
-                                    <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                        <span class="text-green-600 text-xs">✔</span>
-                                    </div>
-                                    <span class="text-gray-700">{{ $feature }}</span>
+                            <div class="flex items-center gap-3">
+                                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                    <span class="text-green-600 text-xs">✔</span>
                                 </div>
+                                <span class="text-gray-700">{{ $feature }}</span>
+                            </div>
                             @endforeach
                         </div>
 
                         <div class="pt-4">
                             <a href="{{ url('/over-ons') }}"
-                               class="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium
+                                class="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium
                                       bg-purple-600 text-white hover:bg-purple-700 transition-colors">
                                 Lees meer over ons
                             </a>
@@ -208,7 +208,7 @@
             });
 
             const userToggle = document.querySelector('[data-user-menu-toggle]');
-            const userMenu   = document.querySelector('[data-user-menu]');
+            const userMenu = document.querySelector('[data-user-menu]');
             if (userToggle && userMenu) {
                 userToggle.addEventListener('click', () => {
                     userMenu.classList.toggle('hidden');
@@ -223,4 +223,5 @@
         });
     </script>
 </body>
+
 </html>

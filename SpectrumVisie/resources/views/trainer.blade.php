@@ -12,7 +12,7 @@
     @include('layouts.header')
 
 
-    <section class="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20 px-4 sm:px-6 lg:px-8">
+    <section class="bg-linear-to-br from-blue-600 to-blue-700 text-white py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-4xl md:text-5xl mb-6">Word Autisme Trainer</h2>
             <p class="text-xl md:text-2xl mb-8 text-blue-100">
@@ -94,7 +94,7 @@
                         Hands-on training in begeleiding, coaching en psycho-educatie.
                     </p>
                     <ul class="space-y-2 text-gray-700">
-                        <li>• Trainingen en groepen begeleiden</li>
+                        <li>• Helpen van jongeren op het spectrum</li>
                         <li>• Individuele coaching technieken</li>
                         <li>• Psycho-educatie ontwikkelen</li>
                     </ul>
