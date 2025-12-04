@@ -48,6 +48,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="certificate_code">certificaat</label>
+                    <input id="certificate_code" type="text" name="certificate_code" value="{{ old('certificate_code') }}">
+                </div>
+
+                <div class="form-group">
                     <label for="role_id">Rol</label>
                     <select id="role_id" name="role_id">
                         @foreach ($roles as $role)
