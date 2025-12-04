@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountStatusController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendingController;
@@ -58,6 +59,8 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
+Route::post('/user/deactivate/{id}', [AccountStatusController::class, 'deactivate'])->name('user.deactivate');
+Route::post('/user/activate/{id}', [AccountStatusController::class, 'activate'])->name('user.deactivate');
 
 Route::get('/admin/dashboard', function (MateriaalController $controller, PendingController $UserController) {
     $data = $controller->showAll();
