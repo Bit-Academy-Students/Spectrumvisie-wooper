@@ -39,6 +39,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->rememberToken();
+            $table->boolean('is_active')->default(true);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
 

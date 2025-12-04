@@ -13,7 +13,7 @@ class RegisterController extends Controller
 
     public function ShowRole()
     {
-        return Roles::all();
+        return Roles::where('role_name', '!=', 'admin')->get();
     }
 
     public function Register(Request $request)
@@ -28,7 +28,7 @@ class RegisterController extends Controller
 
         // If the user submited the wrong certificate_code give back a error
         if (!DB::table('certificate')->where('certificate_code', $request->certificate_code)->exists()) {
-            return back()->with('error', 'verkeerde cerficaat code');
+            return back()->withErrors(['certificate_code' => 'Verkeerde certificaat code']);
         }
         PendingUser::create([
             'name' => $request->name,

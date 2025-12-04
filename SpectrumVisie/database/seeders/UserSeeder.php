@@ -8,6 +8,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
+use function Symfony\Component\Clock\now;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -31,8 +33,18 @@ class UserSeeder extends Seeder
             [
                 'name' => 'ouder',
                 'email' => 'ouder@gmail.com',
-                'passwrod' => Hash::make('ouder123'),
+                'password' => Hash::make('ouder123'),
                 'role_id' => 3,
+            ],
+        ]);
+
+        DB::table('users')->insert([
+            [
+                'name' => 'test',
+                'email' => 'test@gmail.com',
+                'password' => Hash::make('test123'),
+                'role_id' => 3,
+                'expires_at' => now()
             ],
         ]);
     }
