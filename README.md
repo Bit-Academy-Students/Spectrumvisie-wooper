@@ -59,3 +59,7 @@ php artisan migrate --seed
 ```
 php artisan serve
 ```
+en
+```
+npm run dev
+```
