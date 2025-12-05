@@ -25,17 +25,15 @@
                 $item->user_access = null;
             }
             ?>
-        {{-- @php $hasAccess = $item->access->where('role_id', $userRole)->first() @endphp --}}
         <li>
             <h3>{{ $item->title }}</h3>
             <p>Type: {{ $item->materialType->type }}</p>
-            {{-- @if ($hasAccess && $hasAccess->can_view) --}}
             @if ($item->user_access && $item->user_access->can_view)
                 <a href="{{ route('materials.view', $item->id) }}">Bekijken</a>
             @endif
 
             {{-- @if ($hasAccess && $hasAccess->can_download && !in_array($item->material_type_id, [4, 5])) --}}
-            @if ($item->user_access && $item->user_access->can_download)
+            @if ($item->user_access && $item->user_access->can_download && !in_array($item->material_type_id, [4, 5]))
                 <a href="{{ route('materials.download', $item->id) }}">Downloaden</a>
             @endif
         </li>

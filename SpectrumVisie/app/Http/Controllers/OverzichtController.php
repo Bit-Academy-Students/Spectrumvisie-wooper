@@ -13,9 +13,8 @@ class OverzichtController extends Controller
 {
     public function showCategory($id)
     {
-        if (Auth::user()) {
-            $userRole = Auth::user()->role_id;
-        } else { $userRole = null;}
+        $userRole = (Auth::user()) ? Auth::user()->role_id : null;
+        
         return [
             'category' => Category::findOrFail($id),
             'materiaal' => Materiaal::where('category_id', $id)->with(['materialType', 'access'])->get(),
