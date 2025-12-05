@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Category;
-use App\Models\Roles;
 use App\Models\Materiaal;
-use App\Models\MaterialType;
-use Illuminate\Http\Request;
-use App\Models\MaterialAccess;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
@@ -17,9 +13,13 @@ class OverzichtController extends Controller
 {
     public function showCategory($id)
     {
+        if (Auth::user()) {
+            $userRole = Auth::user()->role_id;
+        } else { $userRole = null;}
         return [
             'category' => Category::findOrFail($id),
             'materiaal' => Materiaal::where('category_id', $id)->with(['materialType', 'access'])->get(),
+            'userRole' => $userRole
         ];
     }
 
