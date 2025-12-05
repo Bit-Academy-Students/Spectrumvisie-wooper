@@ -30,7 +30,7 @@
     @elseif ($item->materialType->type === 'artikel')
         <a href="{{ $item->URL }}" target="_blank">Open Artikel</a>
     @else
-        @php
+        @php    
             $userRole = auth()->user()->role_id;
             $hasAccess = $item->access->where('role_id', $userRole)->first();
         @endphp
