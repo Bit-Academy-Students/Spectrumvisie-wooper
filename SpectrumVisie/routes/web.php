@@ -64,3 +64,11 @@ Route::get('/admin/dashboard', function (MateriaalController $controller, Pendin
 
     return view('Admin_dashboard', compact('data', 'UserData'));
 })->name('admin.dashboard');
+
+Route::get('/trainer', function () {
+    return view('trainer');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
