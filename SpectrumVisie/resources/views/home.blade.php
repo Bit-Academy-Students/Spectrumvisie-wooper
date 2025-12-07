@@ -32,14 +32,14 @@
                         </p>
 
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="#materiaal"
+                            <a href="http://127.0.0.1:8000/platform"
                                 class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
                                       bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                                 Start hier
                                 <span class="ml-2 text-lg">➜</span>
                             </a>
 
-                            <a href="#about"
+                            <a href="http://127.0.0.1:8000/about"
                                 class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
                                       border border-gray-300 text-gray-800 bg-white hover:bg-gray-50 transition-colors">
                                 Meer informatie
@@ -181,7 +181,7 @@
                         </div>
 
                         <div class="pt-4">
-                            <a href="{{ url('/over-ons') }}"
+                            <a href="https://teams.microsoft.com/meet/33325878468841?p=VhmqHeB88rT1v4zhrK"
                                 class="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium
                                       bg-purple-600 text-white hover:bg-purple-700 transition-colors">
                                 Lees meer over ons
