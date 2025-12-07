@@ -139,7 +139,7 @@
                 <div class="space-y-3">
                     <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">4</div>
                     <h4 class="font-medium text-lg">Materialen Gebruiken</h4>
-                    <p class="text-gray-600 text-sm">Download en bekijk de beschikbare materialen</p>
+                    <p class="text-gray-600 text-sm">Download en bekijk de brede catalogus aan materialen</p>
                 </div>
             </div>
         </div>
