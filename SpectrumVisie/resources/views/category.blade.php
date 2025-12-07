@@ -10,7 +10,7 @@
 
 <body>
     @php
-        $userRole = auth()->user()->role_id;
+        // $userRole = auth()->user()->role_id;
     @endphp
     <ul class="mb-0">
         <li>Huidige categorie: {{ $data['category']->name }}
@@ -18,21 +18,25 @@
     </ul>
     <ul class="mb-0">
         @foreach ($data['materiaal'] as $item)
-        @php $hasAccess = $item->access->where('role_id', $userRole)->first() @endphp
+        <?php
+            if ($data['userRole']) {
+                $item->user_access = $item->access->where('role_id', $data['userRole'])->first();
+            } else {
+                $item->user_access = null;
+            }
+            ?>
         <li>
-                <h3>{{ $item->title }}</h3>
-                <p>Type: {{ $item->materialType->type }}</p>
+            <h3>{{ $item->title }}</h3>
+            <p>Type: {{ $item->materialType->type }}</p>
+            @if ($item->user_access && $item->user_access->can_view)
+                <a href="{{ route('materials.view', $item->id) }}">Bekijken</a>
+            @endif
 
-                <strong>Toegang:</strong>
-            
-                @if ($hasAccess && $hasAccess->can_view)
-                    <a href="{{ route('materials.view', $item->id) }}">Bekijken</a>
-                @endif
-
-                @if ($hasAccess && $hasAccess->can_download && !in_array($item->material_type_id, [4, 5]))
-                    <a href="{{ route('materials.download', $item->id) }}">Downloaden</a>
-                @endif
-            </li>
+            {{-- @if ($hasAccess && $hasAccess->can_download && !in_array($item->material_type_id, [4, 5])) --}}
+            @if ($item->user_access && $item->user_access->can_download && !in_array($item->material_type_id, [4, 5]))
+                <a href="{{ route('materials.download', $item->id) }}">Downloaden</a>
+            @endif
+        </li>
         @endforeach
     </ul>
 </body>
