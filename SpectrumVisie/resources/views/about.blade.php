@@ -116,103 +116,64 @@
 
 
 
-        <div>
+        <!-- Uitleg platform slider -->
+        <div class="py-6">
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 border-b p-4 rounded-t-2xl">
                 <h2 class="text-2xl font-semibold">Hoe Werkt Het?</h2>
             </div>
-            <div class="pt-6 grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
 
-                <div class="space-y-3">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">1</div>
-                    <h4 class="font-medium text-lg">Trainer worden</h4>
-                    <p class="text-gray-600 text-sm">Word Jouwautisme-trainer en ontvang een certificaat.</p>
+            <div class="mt-6 flex items-center justify-center gap-4">
+                <!-- Vorige knop -->
+                <button id="prevBtn" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition">❮</button>
+
+                <!-- Slider content -->
+                <div class="w-full max-w-3xl relative overflow-hidden">
+                    <div id="slider" class="flex transition-transform duration-300">
+                        <!-- Slide 1 -->
+                        <div class="min-w-full text-center space-y-3">
+                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">1</div>
+                            <h4 class="font-medium text-lg">Trainer worden</h4>
+                            <p class="text-gray-600 text-sm">Word Jouwautisme-trainer en ontvang een certificaat.</p>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="min-w-full text-center space-y-3">
+                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">2</div>
+                            <h4 class="font-medium text-lg">Account aanmaken</h4>
+                            <p class="text-gray-600 text-sm">Gebruik jouw certificaatnummer en maak een account aan.</p>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="min-w-full text-center space-y-3">
+                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">3</div>
+                            <h4 class="font-medium text-lg">Toegang tot platform</h4>
+                            <p class="text-gray-600 text-sm">Zodra account is aangemaakt heeft u toegang tot het Jouwautisme platform</p>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="min-w-full text-center space-y-3">
+                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">4</div>
+                            <h4 class="font-medium text-lg">Materialen Gebruiken</h4>
+                            <p class="text-gray-600 text-sm">Download en bekijk de brede catalogus aan materialen</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="space-y-3">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">2</div>
-                    <h4 class="font-medium text-lg">Account aanmaken</h4>
-                    <p class="text-gray-600 text-sm">Gebruik jouw certifcicaatnummer en maak een account aan.</p>
-                </div>
-
-                <div class="space-y-3">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">3</div>
-                    <h4 class="font-medium text-lg">Toegang tot platofrm</h4>
-                    <p class="text-gray-600 text-sm">Zodra account is aangemaakt heeft U toegang to het Jouwautisme platform</p>
-                </div>
-
-                <div class="space-y-3">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">4</div>
-                    <h4 class="font-medium text-lg">Materialen Gebruiken</h4>
-                    <p class="text-gray-600 text-sm">Download en bekijk de brede catalogus aan materialen</p>
-                </div>
+                <!-- Volgende knop -->
+                <button id="nextBtn" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition">❯</button>
             </div>
-        </div>
 
-        <div>
-            <div class="bg-gradient-to-r from-blue-50 to-purple-50 border-b p-4 rounded-t-2xl flex items-center gap-3">
-                <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-3 rounded-lg shadow-lg text-white">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-semibold">Voor Wie Is Dit Platform?</h2>
-                    <p class="text-base mt-1 text-gray-700">Deze groepen kunnen gebruik maken van het platform</p>
-                </div>
-            </div>
-            <div class="pt-6 grid md:grid-cols-2 gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Ouders van kinderen met autisme</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Professionele trainers en coaches</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Zorgverleners en begeleiders</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Onderwijsprofessionals</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Therapeuten en psychologen</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-green-100 p-1 rounded-full text-green-600">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700">Organisaties die autisme trainingen geven</p>
-                </div>
+            <!-- Indicatoren -->
+            <div id="indicators" class="flex justify-center gap-2 mt-4">
+                <div class="w-4 h-4 bg-blue-600 rounded-full"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
+                <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
             </div>
         </div>
 
 
+        <!-- Call to action -->
         <div class="border-2 rounded-2xl bg-gradient-to-r from-blue-50 to-blue-60 shadow p-6 text-center space-y-4">
             <h2 class="text-2xl font-semibold">Toegang Nodig?</h2>
             <p class="text-gray-700 max-w-2xl mx-auto">
@@ -234,7 +195,35 @@
         </div>
 
     </div>
+    <script>
+        const slider = document.getElementById('slider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.getElementById('indicators').children;
 
+        let currentSlide = 0;
+        const totalSlides = slider.children.length;
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update indicators
+            for (let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.toggle('bg-blue-600', i === currentSlide);
+                indicators[i].classList.toggle('bg-gray-300', i !== currentSlide);
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        });
+    </script>
 </body>
 
 </html>
