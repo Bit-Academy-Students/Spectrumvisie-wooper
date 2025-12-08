@@ -12,7 +12,7 @@
 
     @include('layouts.header')
 
-    <!-- HERO -->
+    <!-- Top hero section -->
     <section class="bg-linear-to-br from-blue-600 to-blue-700 text-white py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
             <h2 class="text-4xl md:text-5xl mb-6">Word Autisme Trainer</h2>
@@ -26,7 +26,7 @@
         </div>
     </section>
 
-    <!-- WAAROM TRAINER -->
+    <!-- Wrm trainer -->
     <section class="py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center mb-12 flex flex-col items-center">
             <h2 class="text-3xl mb-4">Waarom Autisme Trainer Worden?</h2>
@@ -70,7 +70,7 @@
         </div>
     </section>
 
-    <!-- WAT LEER JE -->
+    <!-- Wat leer je -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-4xl mx-auto flex flex-col items-center">
             <h2 class="text-3xl mb-8 text-center">Wat Leer Je?</h2>
@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- Call to action -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600 text-white">
         <div class="max-w-3xl mx-auto text-center flex flex-col items-center">
             <h2 class="text-3xl md:text-4xl mb-4">Klaar om te Beginnen?</h2>

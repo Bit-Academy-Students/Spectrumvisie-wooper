@@ -18,7 +18,7 @@
 
     <div class="max-w-7xl mx-auto px-6 py-10">
 
-        <!-- Categorie Header -->
+        <!-- Categorie naam -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900">
                 Categorie:
@@ -26,7 +26,7 @@
             </h1>
         </div>
 
-        <!-- Materialen Grid -->
+        <!-- Materialen -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach ($data['materiaal'] as $item)
@@ -38,7 +38,7 @@
             }
             ?>
 
-            <!-- Card -->
+            <!-- Cards met materiaal -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
 
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">

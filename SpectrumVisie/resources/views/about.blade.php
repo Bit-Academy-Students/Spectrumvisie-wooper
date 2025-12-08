@@ -11,6 +11,7 @@
 <body class="bg-gray-50 min-h-screen font-sans text-gray-800">
 
 
+    <!-- Top section -->
     <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div class="container mx-auto px-4 max-w-6xl text-center space-y-4">
             <h1 class="text-4xl md:text-5xl font-bold">Jouw Autisme Materiaal Platform</h1>
@@ -20,6 +21,8 @@
         </div>
     </section>
 
+
+    <!-- Info platform -->
     <div class="container mx-auto px-4 max-w-6xl py-12 space-y-12">
 
 
@@ -47,6 +50,7 @@
         </div>
 
 
+        <!-- Mogelijkheden platform-->
         <div>
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 border-b p-4 rounded-t-2xl">
                 <h2 class="text-2xl font-semibold">Platform Mogelijkheden</h2>
