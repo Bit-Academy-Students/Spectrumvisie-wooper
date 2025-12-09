@@ -70,13 +70,25 @@
                         class="hidden absolute right-0 mt-2 w-44 rounded-md bg-white shadow-lg ring-1 ring-black/5 py-1 text-sm"
                         data-user-menu
                     >
+                        @guest
                         <a href="{{ url('/login') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
                             Inloggen
                         </a>
                         <a href="{{ url('/register') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
                             Account aanmaken
                         </a>
+
+                        @endguest
+
+                    @auth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100">
+                            Uitloggen
+                        </button>
+                    </form>
                     </div>
+                    @endauth
                 </div>
 
                 <button
