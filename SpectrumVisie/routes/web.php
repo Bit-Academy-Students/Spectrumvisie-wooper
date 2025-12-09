@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountStatusController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendingController;
@@ -37,11 +38,18 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
     return view('category', compact('data'));
 });
 
-Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
-    ->name('materials.view');
+Route::get('/materials/view/{id}', function ($id, OverzichtController $controller) {
+    $item = $controller->view($id);
+
+    return view('view', compact('item'));
+})->name('materials.view');
 
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
+
+Route::get('/stream/{id}', [OverzichtController::class, 'stream'])
+    ->name('materials.stream');
+
 
 Route::get('/', function () {
     return view('home');
@@ -52,6 +60,8 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
+Route::post('/user/deactivate/{id}', [AccountStatusController::class, 'deactivate'])->name('user.deactivate');
+Route::post('/user/activate/{id}', [AccountStatusController::class, 'activate'])->name('user.deactivate');
 
 Route::get('/admin/dashboard', function (MateriaalController $controller, PendingController $UserController) {
     $data = $controller->showAll();
@@ -65,3 +75,11 @@ Route::post('/materials/{id}/access', [MateriaalController::class, 'updateAccess
 
     Route::delete('/materials/{id}', [MateriaalController::class, 'destroy'])
     ->name('materials.destroy');
+
+Route::get('/trainer', function () {
+    return view('trainer');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});

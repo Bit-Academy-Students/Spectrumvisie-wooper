@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Category;
-use App\Models\Roles;
 use App\Models\Materiaal;
-use App\Models\MaterialType;
-use Illuminate\Http\Request;
-use App\Models\MaterialAccess;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
@@ -17,16 +13,28 @@ class OverzichtController extends Controller
 {
     public function showCategory($id)
     {
+        $userRole = (Auth::user()) ? Auth::user()->role_id : null;
+
         return [
             'category' => Category::findOrFail($id),
             'materiaal' => Materiaal::where('category_id', $id)->with(['materialType', 'access'])->get(),
+            'userRole' => $userRole
         ];
     }
 
-    public function showMaterial($id)
+    public function stream($id)
     {
-        return;
+        $item = $this->userHasAccess($id, 'can_view');
+
+        if (!$item) {
+            return redirect('platform');
+        }
+
+        $path = Storage::disk('private')->path($item->file_path);
+
+        return response()->file($path);
     }
+
 
     public function userHasAccess($id, $rights)
     {
@@ -38,8 +46,15 @@ class OverzichtController extends Controller
     }
 
 
-    public function view($id) {
+    public function view($id)
+    {
         $item = $this->userHasAccess($id, 'can_view');
+
+        if (!$item) {
+            return redirect('platform');
+        }
+
+        return $item;
     }
 
     public function download($id)

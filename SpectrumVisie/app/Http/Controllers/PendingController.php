@@ -21,7 +21,8 @@ class PendingController extends Controller
             'name' => $pending->name,
             'email' => $pending->email,
             'password' => $pending->password,
-            'role_id' => $pending->role_id
+            'role_id' => $pending->role_id,
+            'expires_at' => now()->addYear()
         ]);
 
         $pending->delete();

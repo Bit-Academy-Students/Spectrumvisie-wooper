@@ -14,7 +14,17 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
 
+
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if (!$user->is_active) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Jouw account is inactief herniew je training op deze website ..'
+                ]);
+            }
+
             $request->session()->regenerate();
 
             return redirect('/')->with('succes', 'You logged in succesfully');
@@ -22,7 +32,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
 
-            'email' => 'Invalid information',
+            'email' => 'Verkeerde inloggegevens',
 
         ]);
     }
