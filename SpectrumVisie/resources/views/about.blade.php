@@ -123,7 +123,7 @@
             </div>
 
             <div class="mt-6 flex items-center justify-center gap-4">
-                <!-- Vorige knop -->
+                <!-- Vorige knopje -->
                 <button id="prevBtn" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition">❮</button>
 
                 <!-- Slider content -->
@@ -131,35 +131,35 @@
                     <div id="slider" class="flex transition-transform duration-300">
                         <!-- Slide 1 -->
                         <div class="min-w-full text-center space-y-3">
-                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">1</div>
+                            <div class="bg-gradient-to-br from-blue-600 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">1</div>
                             <h4 class="font-medium text-lg">Trainer worden</h4>
                             <p class="text-gray-600 text-sm">Word Jouwautisme-trainer en ontvang een certificaat.</p>
                         </div>
 
                         <!-- Slide 2 -->
                         <div class="min-w-full text-center space-y-3">
-                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">2</div>
+                            <div class="bg-gradient-to-br from-blue-600 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">2</div>
                             <h4 class="font-medium text-lg">Account aanmaken</h4>
                             <p class="text-gray-600 text-sm">Gebruik jouw certificaatnummer en maak een account aan.</p>
                         </div>
 
                         <!-- Slide 3 -->
                         <div class="min-w-full text-center space-y-3">
-                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">3</div>
+                            <div class="bg-gradient-to-br from-blue-600 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">3</div>
                             <h4 class="font-medium text-lg">Toegang tot platform</h4>
                             <p class="text-gray-600 text-sm">Zodra account is aangemaakt heeft u toegang tot het Jouwautisme platform</p>
                         </div>
 
                         <!-- Slide 4 -->
                         <div class="min-w-full text-center space-y-3">
-                            <div class="bg-gradient-to-br from-blue-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">4</div>
+                            <div class="bg-gradient-to-br from-blue-600 to-blue-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-white text-2xl shadow-lg">4</div>
                             <h4 class="font-medium text-lg">Materialen Gebruiken</h4>
                             <p class="text-gray-600 text-sm">Download en bekijk de brede catalogus aan materialen</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Volgende knop -->
+                <!-- Volgende knopje -->
                 <button id="nextBtn" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition">❯</button>
             </div>
 
