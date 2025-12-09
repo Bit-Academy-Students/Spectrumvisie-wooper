@@ -8,18 +8,19 @@ use App\Models\Materiaal;
 use App\Models\MaterialType;
 use Illuminate\Http\Request;
 use App\Models\MaterialAccess;
+use Illuminate\Support\Facades\Storage;
 
 class MateriaalController extends Controller
 {
-    public function showAll()
-    {
-        return [
-            'types'      => MaterialType::all(),
-            'roles'      => Roles::where('role_name', '!=', 'admin')->get(),
-            'categories' => Category::all(),
-            'materiaal'  => Materiaal::all(),
-        ];
-    }
+public function showAll()
+{
+    return [
+        'types'      => MaterialType::all(),
+        'roles'      => Roles::where('role_name', '!=', 'admin')->get(),
+        'categories' => Category::all(),
+        'materiaal'  => Materiaal::with(['materialType', 'category', 'access'])->get(),
+    ];
+}
 
     protected function youtubeEmbedUrl($url)
     {
@@ -164,4 +165,34 @@ class MateriaalController extends Controller
             );
         }
     }
+
+    public function updateAccess(Request $request, $id)
+    {
+        $materiaal = Materiaal::findOrFail($id);
+
+        $viewRoles     = $request->input('can_view', []);
+        $downloadRoles = $request->input('can_download', []);
+
+        MaterialAccess::where('materiaal_id', $materiaal->id)->delete();
+
+        $this->savePermissions($materiaal->id, $viewRoles, $downloadRoles);
+
+        return back()->with('success', 'Toegangsrechten bijgewerkt.');
+    }
+
+    public function destroy($id)
+{
+    $materiaal = Materiaal::findOrFail($id);
+
+    MaterialAccess::where('materiaal_id', $materiaal->id)->delete();
+
+    if ($materiaal->file_path) {
+        Storage::disk('private')->delete($materiaal->file_path);
+    }
+
+    $materiaal->delete();
+
+    return back()->with('success', 'Materiaal verwijderd.');
+}
+
 }

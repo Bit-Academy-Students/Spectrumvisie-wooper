@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 
 <head>
-    <title>Registreren</title>
+    <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite('resources/css/app.css')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Registreren</title>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
 
-    <div class="auth-container">
-        <div class="auth-card">
+    <div class="w-full max-w-lg mx-auto p-6">
+        <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-8">
 
-            <h1 class="auth-title">Registreren</h1>
+            <h1 class="text-2xl font-semibold mb-6 text-center">Registreren</h1>
 
             {{-- Success message --}}
             @if (session('status'))
-            <div class="alert alert-success">
+            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('status') }}
             </div>
             @endif
 
             {{-- Validation errors --}}
             @if ($errors->any())
-            <div class="alert alert-error">
-                <ul>
+            <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+                <ul class="list-disc list-inside space-y-1">
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                     @endforeach
@@ -34,46 +35,56 @@
             </div>
             @endif
 
-            <form method="POST" action="/register" class="auth-form">
+            <form method="POST" action="/register" class="space-y-6">
                 @csrf
 
-                <div class="form-group">
-                    <label for="name">Naam</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}">
+                <div class="space-y-1">
+                    <label for="name" class="block text-gray-700">Naam</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}">
+                <div class="space-y-1">
+                    <label for="email" class="block text-gray-700">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <div class="form-group">
-                    <label for="certificate_code">certificaat</label>
-                    <input id="certificate_code" type="text" name="certificate_code" value="{{ old('certificate_code') }}">
+                <div class="space-y-1">
+                    <label for="certificate_code" class="block text-gray-700">Certificaat</label>
+                    <input id="certificate_code" type="text" name="certificate_code" value="{{ old('certificate_code') }}"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <div class="form-group">
-                    <label for="role_id">Rol</label>
-                    <select id="role_id" name="role_id">
+                <div class="space-y-1">
+                    <label for="role_id" class="block text-gray-700">Rol</label>
+                    <select id="role_id" name="role_id"
+                        class="w-full border border-gray-300 rounded px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">
-                                {{ $role->role_name }}
-                            </option>
+                        <option value="{{ $role->id }}">
+                            {{ $role->role_name }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Wachtwoord</label>
-                    <input id="password" type="password" name="password">
+                <div class="space-y-1">
+                    <label for="password" class="block text-gray-700">Wachtwoord</label>
+                    <input id="password" type="password" name="password"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Herhaal Wachtwoord</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation">
+                <div class="space-y-1">
+                    <label for="password_confirmation" class="block text-gray-700">Herhaal Wachtwoord</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <button type="submit" class="auth-button">Registreer</button>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 rounded font-semibold">
+                    Registreer
+                </button>
+
             </form>
 
         </div>

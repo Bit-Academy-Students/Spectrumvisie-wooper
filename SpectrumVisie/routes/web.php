@@ -9,6 +9,7 @@ use App\Http\Controllers\MateriaalController;
 use App\Http\Controllers\OverzichtController;
 use App\Http\Middleware\AdminMiddleware;
 
+
 Route::get('/register', function (RegisterController $controller) {
     $roles = $controller->ShowRole();
     return view('register', compact('roles'));
@@ -38,11 +39,18 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
     return view('category', compact('data'));
 });
 
-Route::get('/materials/view/{id}', [OverzichtController::class, 'view'])
-    ->name('materials.view');
+Route::get('/materials/view/{id}', function ($id, OverzichtController $controller) {
+    $item = $controller->view($id);
+
+    return view('view', compact('item'));
+})->name('materials.view');
 
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
+
+Route::get('/stream/{id}', [OverzichtController::class, 'stream'])
+    ->name('materials.stream');
+
 
 Route::get('/', function () {
     return view('home');
@@ -63,3 +71,15 @@ Route::get('/admin/dashboard', function (MateriaalController $controller, Pendin
 
     return view('Admin_dashboard', compact('data', 'UserData'));
 })->name('admin.dashboard')->middleware(AdminMiddleware::class);
+
+Route::post('/materials/{id}/access', [MateriaalController::class, 'updateAccess'])->name('materials.access.update');
+
+    Route::delete('/materials/{id}', [MateriaalController::class, 'destroy'])->name('materials.destroy');
+
+Route::get('/trainer', function () {
+    return view('trainer');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
