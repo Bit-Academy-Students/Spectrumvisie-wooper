@@ -20,6 +20,7 @@ return new class extends Migration
         Schema::create('certificate', function (Blueprint $table) {
             $table->id();
             $table->string('certificate_code');
+            $table->timestamps();
         });
 
         Schema::create('users_pending', function (Blueprint $table) {
