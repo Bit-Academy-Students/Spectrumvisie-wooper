@@ -14,13 +14,27 @@ class OverzichtController extends Controller
     public function showCategory($id)
     {
         $userRole = (Auth::user()) ? Auth::user()->role_id : null;
-        
+
         return [
             'category' => Category::findOrFail($id),
             'materiaal' => Materiaal::where('category_id', $id)->with(['materialType', 'access'])->get(),
             'userRole' => $userRole
         ];
     }
+
+    public function stream($id)
+    {
+        $item = $this->userHasAccess($id, 'can_view');
+
+        if (!$item) {
+            return redirect('platform');
+        }
+
+        $path = Storage::disk('private')->path($item->file_path);
+
+        return response()->file($path);
+    }
+
 
     public function userHasAccess($id, $rights)
     {
@@ -32,7 +46,8 @@ class OverzichtController extends Controller
     }
 
 
-    public function view($id) {
+    public function view($id)
+    {
         $item = $this->userHasAccess($id, 'can_view');
 
         if (!$item) {
@@ -40,7 +55,6 @@ class OverzichtController extends Controller
         }
 
         return $item;
-
     }
 
     public function download($id)
