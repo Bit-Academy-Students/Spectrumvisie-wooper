@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriaalController;
 use App\Http\Controllers\OverzichtController;
 
+
 Route::get('/register', function (RegisterController $controller) {
     $roles = $controller->ShowRole();
     return view('register', compact('roles'));
@@ -68,6 +69,12 @@ Route::get('/admin/dashboard', function (MateriaalController $controller, Pendin
 
     return view('Admin_dashboard', compact('data', 'UserData'));
 })->name('admin.dashboard');
+
+Route::post('/materials/{id}/access', [MateriaalController::class, 'updateAccess'])
+    ->name('materials.access.update');
+
+    Route::delete('/materials/{id}', [MateriaalController::class, 'destroy'])
+    ->name('materials.destroy');
 
 Route::get('/trainer', function () {
     return view('trainer');
