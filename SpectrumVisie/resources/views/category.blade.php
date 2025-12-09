@@ -39,50 +39,61 @@
 
         </div>
 
-        <!-- Materialen -->
-        <div id="materialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Materialen + laad meer container -->
+        <div class="flex flex-col items-center gap-6 pb-10">
 
-            @foreach ($data['materiaal'] as $item)
-            <?php
-            if ($data['userRole']) {
-                $item->user_access = $item->access->where('role_id', $data['userRole'])->first();
-            } else {
-                $item->user_access = null;
-            }
-            ?>
+            <!-- Grid van materialen -->
+            <div id="materialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
 
-            <!-- Cards met materiaal -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col material-card"
-                data-title="{{ strtolower($item->title) }}" data-type="{{ strtolower($item->materialType->type) }}">
+                @foreach ($data['materiaal'] as $item)
+                <?php
+                if ($data['userRole']) {
+                    $item->user_access = $item->access->where('role_id', $data['userRole'])->first();
+                } else {
+                    $item->user_access = null;
+                }
+                ?>
 
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                    {{ $item->title }}
-                </h3>
+                <!-- Cards met materiaal -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col material-card"
+                    data-title="{{ strtolower($item->title) }}" data-type="{{ strtolower($item->materialType->type) }}">
 
-                <p class="text-gray-600 text-sm mb-4">
-                    Type: <span class="font-medium">{{ $item->materialType->type }}</span>
-                </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                        {{ $item->title }}
+                    </h3>
 
-                <div class="mt-auto flex items-center gap-3">
+                    <p class="text-gray-600 text-sm mb-4">
+                        Type: <span class="font-medium">{{ $item->materialType->type }}</span>
+                    </p>
 
-                    @if ($item->user_access && $item->user_access->can_view)
-                    <a href="{{ route('materials.view', $item->id) }}"
-                        class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition">
-                        Bekijken
-                    </a>
-                    @endif
+                    <div class="mt-auto flex items-center gap-3">
 
-                    @if ($item->user_access && $item->user_access->can_download && !in_array($item->material_type_id, [4, 5]))
-                    <a href="{{ route('materials.download', $item->id) }}"
-                        class="inline-flex items-center px-4 py-2 rounded-full bg-gray-100 text-gray-800 text-sm font-medium hover:bg-gray-200 transition">
-                        Downloaden
-                    </a>
-                    @endif
+                        @if ($item->user_access && $item->user_access->can_view)
+                        <a href="{{ route('materials.view', $item->id) }}"
+                            class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition">
+                            Bekijken
+                        </a>
+                        @endif
+
+                        @if ($item->user_access && $item->user_access->can_download && !in_array($item->material_type_id, [4, 5]))
+                        <a href="{{ route('materials.download', $item->id) }}"
+                            class="inline-flex items-center px-4 py-2 rounded-full bg-gray-100 text-gray-800 text-sm font-medium hover:bg-gray-200 transition">
+                            Downloaden
+                        </a>
+                        @endif
+
+                    </div>
 
                 </div>
+                @endforeach
 
             </div>
-            @endforeach
+
+            <!-- Laad meer knop -->
+            <button id="loadMoreBtn"
+                class="px-6 py-3 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                Laad meer
+            </button>
 
         </div>
 
@@ -93,6 +104,7 @@
         const searchInput = document.getElementById('searchInput');
         const filterSelect = document.getElementById('filterSelect');
         const cards = document.querySelectorAll('.material-card');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
 
         // Filter dropdown
         const types = new Set();
@@ -125,12 +137,12 @@
                 }
             });
 
-            //  laat de tekst geen resultaten zien als er niks is
+            // Laat de tekst geen resultaten zien als er niks is
             if (!anyVisible) {
                 if (!document.getElementById('noResults')) {
                     const noResults = document.createElement('p');
                     noResults.id = 'noResults';
-                    noResults.textContent = 'Geen resultaten gevonden.';
+                    noResults.textContent = 'Geen resultaten.';
                     noResults.className = 'text-center text-gray-500 col-span-full';
                     document.getElementById('materialsGrid').appendChild(noResults);
                 }
@@ -142,6 +154,24 @@
 
         searchInput.addEventListener('input', filterMaterials);
         filterSelect.addEventListener('change', filterMaterials);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cardsArray = [...document.querySelectorAll('.material-card')];
+            let currentIndex = 0;
+            const itemsPerPage = 10;
+
+            // Verberg alle kaarten eerst
+            cardsArray.forEach(c => c.style.display = 'none');
+
+            function showItems() {
+                cardsArray.slice(currentIndex, currentIndex + itemsPerPage).forEach(c => c.style.display = 'flex');
+                currentIndex += itemsPerPage;
+                if (currentIndex >= cardsArray.length) loadMoreBtn.style.display = 'none';
+            }
+
+            loadMoreBtn.addEventListener('click', showItems);
+            showItems();
+        });
     </script>
 
 </body>
