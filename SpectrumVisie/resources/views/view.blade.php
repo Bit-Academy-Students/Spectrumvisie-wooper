@@ -20,17 +20,17 @@
     @endif
 
     @if ($item->materialType->type === 'pdf')
-        <embed src="{{ asset('storage/' . $item->file_path) }}" type="application/pdf" width="100%" height="600px">
+        <embed src="{{ route('materials.stream', $item->id) }}" type="application/pdf" width="60%" height="600px">
     @elseif ($item->materialType->type === 'youtube-link')
         <iframe width="560" height="315" src="{{ $item->URL }}" frameborder="0" allowfullscreen></iframe>
     @elseif ($item->materialType->type === 'video')
         <video width="400" controls>
-            <source src="{{ asset('storage/' . $item->file_path) }}">
+            <source src="{{ route('materials.stream', $item->id) }}">
         </video>
     @elseif ($item->materialType->type === 'artikel')
         <a href="{{ $item->URL }}" target="_blank">Open Artikel</a>
     @else
-        @php    
+        @php
             $userRole = auth()->user()->role_id;
             $hasAccess = $item->access->where('role_id', $userRole)->first();
         @endphp

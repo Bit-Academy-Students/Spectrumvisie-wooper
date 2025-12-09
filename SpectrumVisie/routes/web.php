@@ -40,11 +40,15 @@ Route::get('/category/{id}', function ($id, OverzichtController $controller) {
 Route::get('/materials/view/{id}', function ($id, OverzichtController $controller) {
     $item = $controller->view($id);
 
-    return view ('view', compact('item'));
+    return view('view', compact('item'));
 })->name('materials.view');
 
 Route::get('/materials/download/{id}', [OverzichtController::class, 'download'])
     ->name('materials.download');
+
+Route::get('/stream/{id}', [OverzichtController::class, 'stream'])
+    ->name('materials.stream');
+
 
 Route::get('/', function () {
     return view('home');
