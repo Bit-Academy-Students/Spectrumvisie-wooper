@@ -26,8 +26,21 @@
             </h1>
         </div>
 
+        <!-- Zoek en filter -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+
+            <input id="searchInput" type="text" placeholder="Zoeken"
+                class="w-full sm:w-1/2 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            <select id="filterSelect"
+                class="w-full sm:w-1/4 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Alle types</option>
+            </select>
+
+        </div>
+
         <!-- Materialen -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="materialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach ($data['materiaal'] as $item)
             <?php
@@ -39,7 +52,8 @@
             ?>
 
             <!-- Cards met materiaal -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col material-card"
+                data-title="{{ strtolower($item->title) }}" data-type="{{ strtolower($item->materialType->type) }}">
 
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">
                     {{ $item->title }}
@@ -73,6 +87,62 @@
         </div>
 
     </div>
+
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('filterSelect');
+        const cards = document.querySelectorAll('.material-card');
+
+        // Filter dropdown
+        const types = new Set();
+        cards.forEach(card => {
+            types.add(card.dataset.type);
+        });
+        types.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            filterSelect.appendChild(option);
+        });
+
+        // Zoeken en filteren
+        function filterMaterials() {
+            const searchValue = searchInput.value.toLowerCase();
+            const filterValue = filterSelect.value.toLowerCase();
+
+            let anyVisible = false;
+
+            cards.forEach(card => {
+                const title = card.dataset.title;
+                const type = card.dataset.type;
+
+                if ((title.includes(searchValue)) && (filterValue === '' || type === filterValue)) {
+                    card.style.display = 'flex';
+                    anyVisible = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            //  laat de tekst geen resultaten zien als er niks is
+            if (!anyVisible) {
+                if (!document.getElementById('noResults')) {
+                    const noResults = document.createElement('p');
+                    noResults.id = 'noResults';
+                    noResults.textContent = 'Geen resultaten gevonden.';
+                    noResults.className = 'text-center text-gray-500 col-span-full';
+                    document.getElementById('materialsGrid').appendChild(noResults);
+                }
+            } else {
+                const noResults = document.getElementById('noResults');
+                if (noResults) noResults.remove();
+            }
+        }
+
+        searchInput.addEventListener('input', filterMaterials);
+        filterSelect.addEventListener('change', filterMaterials);
+    </script>
 
 </body>
 
