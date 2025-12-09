@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Certificate extends Model
 {
+    protected $table = 'certificate';
 
     protected $fillable = [
-        'Certificate_code'
+        'certificate_code'
     ];
 }

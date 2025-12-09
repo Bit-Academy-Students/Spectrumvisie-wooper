@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountStatusController;
+use App\Http\Controllers\certificateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PendingController;
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriaalController;
 use App\Http\Controllers\OverzichtController;
 use App\Http\Middleware\AdminMiddleware;
-
+use App\Models\Certificate;
 
 Route::get('/register', function (RegisterController $controller) {
     $roles = $controller->ShowRole();
@@ -56,6 +57,11 @@ Route::get('/', function () {
     return view('home');
 });
 
+
+Route::get('/certficaat', function () {
+    return view('Certicate');
+});
+
 Route::post('/register', [RegisterController::class, 'Register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -64,6 +70,7 @@ Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->n
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
 Route::post('/user/deactivate/{id}', [AccountStatusController::class, 'deactivate'])->name('user.deactivate');
 Route::post('/user/activate/{id}', [AccountStatusController::class, 'activate'])->name('user.deactivate');
+Route::post('/certificate', [certificateController::class, 'insertCertificate'])->name('insert.certificate');
 
 Route::get('/admin/dashboard', function (MateriaalController $controller, PendingController $UserController) {
     $data = $controller->showAll();
@@ -74,7 +81,7 @@ Route::get('/admin/dashboard', function (MateriaalController $controller, Pendin
 
 Route::post('/materials/{id}/access', [MateriaalController::class, 'updateAccess'])->name('materials.access.update');
 
-    Route::delete('/materials/{id}', [MateriaalController::class, 'destroy'])->name('materials.destroy');
+Route::delete('/materials/{id}', [MateriaalController::class, 'destroy'])->name('materials.destroy');
 
 Route::get('/trainer', function () {
     return view('trainer');

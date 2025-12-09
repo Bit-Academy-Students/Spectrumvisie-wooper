@@ -37,6 +37,9 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
+        DB::table('certificate')->where('certificate_code', $request->certificate_code)->delete();
+
+
         return redirect('/login')->with('succes', 'login succesfull');
     }
 }
