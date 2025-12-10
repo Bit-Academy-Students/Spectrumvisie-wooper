@@ -126,29 +126,20 @@
                         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                             <div class="relative flex-1">
                                 <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
-                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"/>
-                                    </svg>
                                 </span>
-                                <input
-                                    type="text"
-                                    placeholder="Zoek materialen..."
-                                    class="w-full pl-9 pr-3 py-2 rounded-full border border-gray-200 text-sm bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
-                                >
                             </div>
 
                             <div>
                                 <select
+                                    id="materialTypeFilter"
                                     class="w-full sm:w-40 px-3 py-2 rounded-full border border-gray-200 text-sm bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
                                 >
-                                    <option>Alle types</option>
-                                    <option>PDF</option>
-                                    <option>Video</option>
-                                    <option>Word</option>
-                                    <option>Artikel</option>
-                                    <option>YouTube</option>
+                                    <option value="all">Alle types</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="word">Word</option>
+                                    <option value="artikel">Artikel</option>
+                                    <option value="youtube-link">YouTube</option>
                                 </select>
                             </div>
                         </div>
@@ -158,6 +149,7 @@
                         @forelse($data['materiaal'] as $material)
                             @php
                                 $type = strtolower(optional($material->materialType)->type ?? '');
+
                                 $typeLabel = match ($type) {
                                     'pdf'          => 'PDF',
                                     'word'         => 'Word',
@@ -167,28 +159,36 @@
                                     default        => 'Bestand',
                                 };
 
-                                $downloadUrl   = '#';
-                                $downloadLabel = 'Download';
+                                $iconPath  = optional($material->materialType)->icon;
+                                $thumbnail = $iconPath
+                                    ? asset($iconPath)
+                                    : asset('icons/default.png');
+
+                                $downloadUrl    = '#';
+                                $downloadLabel  = 'Download';
                                 $downloadTarget = '_self';
 
                                 if (in_array($type, ['pdf', 'word', 'video']) && $material->file_path) {
-                                    $downloadUrl = asset('storage/' . $material->file_path);
+                                    $downloadUrl   = asset('storage/' . $material->file_path);
                                     $downloadLabel = 'Download';
                                 } elseif ($type === 'youtube-link' && $material->URL) {
-                                    $downloadUrl = $material->URL;
-                                    $downloadLabel = 'Bekijk video';
+                                    $downloadUrl    = $material->URL;
+                                    $downloadLabel  = 'Bekijk video';
                                     $downloadTarget = '_blank';
                                 } elseif ($type === 'artikel' && $material->URL) {
-                                    $downloadUrl = $material->URL;
-                                    $downloadLabel = 'Open artikel';
+                                    $downloadUrl    = $material->URL;
+                                    $downloadLabel  = 'Open artikel';
                                     $downloadTarget = '_blank';
                                 }
                             @endphp
 
-                            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                            <article
+                                class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col material-card"
+                                data-type="{{ $type }}"
+                            >
                                 <div class="relative h-40 bg-gray-200">
                                     <img
-                                        src="https://via.placeholder.com/800x400"
+                                        src="{{ $thumbnail }}"
                                         alt="{{ $material->title ?? 'Materiaal' }}"
                                         class="w-full h-full object-cover"
                                     >
@@ -199,12 +199,10 @@
                                         {{ $typeLabel }}
                                     </span>
                                 </div>
-
                                 <div class="p-4 flex-1 flex flex-col">
                                     <h3 class="font-semibold text-sm mb-1">
                                         {{ $material->title ?? 'Zonder titel' }}
                                     </h3>
-
                                     <p class="text-sm text-gray-600 mb-3">
                                         {{ $material->description }}
                                     </p>
@@ -251,8 +249,7 @@
                                                     stroke-linejoin="round"
                                                     fill-rule="evenodd"
                                                     clip-rule="evenodd"
-                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                                                />
+                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z" />
                                             </svg>
                                         </button>
 
@@ -271,7 +268,12 @@
                                                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 7h12M10 11v6m4-6v6M9 7l1-2h4l1 2m-9 0h10v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z"/>
+                                                    d="M9.1709 4C9.58273 2.83481 10.6942 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4
+                                                    M20.5001 6H3.5
+                                                    M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.16644 8.5
+                                                    M9.5 11L10 16
+                                                    M14.5 11L14 16
+                                                    "/>
                                                 </svg>
                                             </button>
                                         </form>
@@ -578,24 +580,43 @@
                                                 </span>
                                             @endif
                                         </td>
+                                        @if($isActive)
+                                            <td class="px-4 py-3 text-right space-x-3">
+                                                <form
+                                                    action="{{ route('user.deactivate', $user->id) }}"
+                                                    method="POST"
+                                                    class="inline"
+                                                    onsubmit="return confirm('Weet je zeker dat je dit account wilt deactiveren?');"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        type="submit"
+                                                        class="text-red-600 hover:text-red-800 text-xs"
+                                                    >
+                                                        Deactiveer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @else
                                         <td class="px-4 py-3 text-right space-x-3">
                                             <form
-                                                action="{{ route('users.destroy', $user->id) }}"
+                                                action="{{ route('user.activate', $user->id) }}"
                                                 method="POST"
                                                 class="inline"
-                                                onsubmit="return confirm('Weet je zeker dat je dit account permanent wilt verwijderen?');"
+                                                onsubmit="return confirm('Weet je zeker dat je dit account wilt activeren?');"
                                             >
                                                 @csrf
-                                                @method('DELETE')
                                                 <button
                                                     type="submit"
-                                                    class="text-red-600 hover:text-red-800 text-xs"
+                                                    class="text-green-600 hover:text-green-800 text-xs"
                                                 >
-                                                    Verwijderen
+                                                    Activeer
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
 
@@ -607,25 +628,26 @@
                         <div>
                             <h2 class="text-lg font-semibold">Certificaten</h2>
                             <p class="text-sm text-gray-600">
-                                Vul hier een certificaatcode in. De verdere verwerking wordt later door de backend gedaan.
+                                Vul hier een certificaatcode in.
                             </p>
                         </div>
                     </div>
 
                     <form
+                            action="{{ route('insert.certificate') }}"
                         method="POST"
                         class="space-y-3 max-w-md"
                     >
                         @csrf
 
                         <div>
-                            <label for="certificate_code" class="block text-sm font-medium text-gray-700 mb-1">
+                            <label for="certificaat" class="block text-sm font-medium text-gray-700 mb-1">
                                 Certificaatcode
                             </label>
                             <input
-                                id="certificate_code"
+                                id="certificaat"
                                 type="text"
-                                name="certificate_code"
+                                name="certificaat"
                                 class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm shadow-sm
                                     focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
                                 placeholder="Bijv. ABCD-1234"
@@ -866,6 +888,27 @@
 
         typeSelect.addEventListener('change', updateMaterialInputs);
         updateMaterialInputs();
+    });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const filterSelect = document.getElementById('materialTypeFilter');
+        const cards        = document.querySelectorAll('.material-card');
+
+        if (!filterSelect) return;
+
+        filterSelect.addEventListener('change', function () {
+            const selected = this.value;
+
+            cards.forEach(card => {
+                const type = card.dataset.type || '';
+
+                if (selected === 'all' || type === selected) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
     });
     </script>
 </body>
