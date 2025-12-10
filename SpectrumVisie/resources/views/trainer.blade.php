@@ -12,7 +12,7 @@
 
     @include('layouts.header')
 
-    <!-- Top hero section -->
+    <!-- Top hero sectie -->
     <section class="bg-linear-to-br from-blue-600 to-blue-700 text-white py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
             <h2 class="text-4xl md:text-5xl mb-6">Word Autisme Trainer</h2>

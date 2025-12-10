@@ -53,12 +53,12 @@
                 @endif
             </div>
 
-            <!-- Content  -->
+            <!-- Materiaal types  -->
             <div class="w-full flex justify-center mt-6">
 
                 @if ($item->materialType->type === 'pdf')
                 <div class="w-full bg-gray-100 border border-gray-200 rounded-xl overflow-hidden">
-                    <embed src="{{ route('materials.stream', $item->id) }}"
+                    <embed src="{{ route('materials.stream', $item->id) }}#toolbar=0&zoom=100"
                         type="application/pdf"
                         class="w-full h-[500px] sm:h-[700px]">
                 </div>
