@@ -14,7 +14,9 @@ class AccountStatusController extends Controller
         $user->is_active = false;
         $user->expires_at = null;
 
-        $user->save;
+        if ($user->save()) {
+            return redirect()->back()->with('succes', 'Gebruiker succesvol gedeactiveerd');
+        }
     }
 
 
@@ -25,6 +27,8 @@ class AccountStatusController extends Controller
         $user->expires_at = now()->addYear();
         $user->is_active = true;
 
-        $user->save;
+        if ($user->save()) {
+            return redirect()->back()->with('succes', 'Gebruiker succesvol gedeactiveerd');
+        }
     }
 }

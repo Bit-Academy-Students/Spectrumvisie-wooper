@@ -580,24 +580,43 @@
                                                 </span>
                                             @endif
                                         </td>
+                                        @if($isActive)
+                                            <td class="px-4 py-3 text-right space-x-3">
+                                                <form
+                                                    action="{{ route('user.deactivate', $user->id) }}"
+                                                    method="POST"
+                                                    class="inline"
+                                                    onsubmit="return confirm('Weet je zeker dat je dit account wilt deactiveren?');"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        type="submit"
+                                                        class="text-red-600 hover:text-red-800 text-xs"
+                                                    >
+                                                        Deactiveer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @else
                                         <td class="px-4 py-3 text-right space-x-3">
                                             <form
-                                                action="{{ route('users.destroy', $user->id) }}"
+                                                action="{{ route('user.activate', $user->id) }}"
                                                 method="POST"
                                                 class="inline"
-                                                onsubmit="return confirm('Weet je zeker dat je dit account permanent wilt verwijderen?');"
+                                                onsubmit="return confirm('Weet je zeker dat je dit account wilt activeren?');"
                                             >
                                                 @csrf
-                                                @method('DELETE')
                                                 <button
                                                     type="submit"
-                                                    class="text-red-600 hover:text-red-800 text-xs"
+                                                    class="text-green-600 hover:text-green-800 text-xs"
                                                 >
-                                                    Verwijderen
+                                                    Activeer
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
 
@@ -609,25 +628,26 @@
                         <div>
                             <h2 class="text-lg font-semibold">Certificaten</h2>
                             <p class="text-sm text-gray-600">
-                                Vul hier een certificaatcode in. De verdere verwerking wordt later door de backend gedaan.
+                                Vul hier een certificaatcode in.
                             </p>
                         </div>
                     </div>
 
                     <form
+                            action="{{ route('insert.certificate') }}"
                         method="POST"
                         class="space-y-3 max-w-md"
                     >
                         @csrf
 
                         <div>
-                            <label for="certificate_code" class="block text-sm font-medium text-gray-700 mb-1">
+                            <label for="certificaat" class="block text-sm font-medium text-gray-700 mb-1">
                                 Certificaatcode
                             </label>
                             <input
-                                id="certificate_code"
+                                id="certificaat"
                                 type="text"
-                                name="certificate_code"
+                                name="certificaat"
                                 class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm shadow-sm
                                     focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
                                 placeholder="Bijv. ABCD-1234"
