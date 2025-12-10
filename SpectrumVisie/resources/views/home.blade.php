@@ -32,7 +32,7 @@
                         </p>
 
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="http://127.0.0.1:8000/platform"
+                            <a href="http://127.0.0.1:8000/trainer"
                                 class="inline-flex items-center justify-center px-6 py-3 rounded-md text-sm font-medium
                                       bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                                 Start hier
@@ -48,17 +48,14 @@
 
                         <div class="flex flex-wrap gap-8 pt-4">
                             <div>
-                                <div class="text-3xl font-semibold text-blue-600">10.000+</div>
-                                <div class="text-gray-600 text-sm">Geholpen families</div>
+                                <div class="text-3xl font-semibold text-blue-600">100+</div>
+                                <div class="text-gray-600 text-sm">Verschillende materialen</div>
                             </div>
                             <div>
-                                <div class="text-3xl font-semibold text-purple-600">50+</div>
+                                <div class="text-3xl font-semibold text-purple-600">10+</div>
                                 <div class="text-gray-600 text-sm">Professionals</div>
                             </div>
-                            <div>
-                                <div class="text-3xl font-semibold text-pink-600">24/7</div>
-                                <div class="text-gray-600 text-sm">Ondersteuning</div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -109,7 +106,7 @@
                         </div>
                         <h3 class="text-base font-semibold mb-1">Professionele Hulp</h3>
                         <p class="text-sm text-gray-600">
-                            Toegang tot gekwalificeerde therapeuten en begeleiders.
+                            Toegang tot gekwalificeerde trainers.
                         </p>
                     </article>
 
@@ -120,11 +117,70 @@
                         </div>
                         <h3 class="text-base font-semibold mb-1">Praktische Tips</h3>
                         <p class="text-sm text-gray-600">
-                            Dagelijkse strategieën en hulpmiddelen voor thuis, school en werk.
+                            Strategieën en hulpmiddelen.
                         </p>
                     </article>
                 </div>
             </div>
+
+
+            <section id="over" class="py-20 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="relative order-2 lg:order-1">
+                            <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-slate-200">
+                                <img
+                                    src="https://images.unsplash.com/photo-1565373086464-c8af0d586c0c?auto=format&fit=crop&w=1200&q=80"
+                                    alt="Learning support"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="space-y-6 order-1 lg:order-2">
+
+
+                            <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900">
+                                Wij kijken anders naar autisme
+                            </h2>
+
+                            <h3 class="text-lg font-semibold text-[#4bafe8]">
+                                Jouw Autisme: de sleutel tot meer ondersteuning en begrip
+                            </h3>
+
+                            <p class="text-gray-700 text-base sm:text-lg">
+                                Bij Jouw Autisme kijken we op een nieuwe, open manier naar autisme. Jongeren met autisme verwerken informatie op hun eigen manier en beleven de wereld vaak anders. Wij willen hen ondersteunen en versterken, zodat zij hun weg kunnen vinden in een omgeving die niet altijd vanzelf bij hen aansluit.
+                            </p>
+
+                            <div class="space-y-3 text-sm sm:text-base">
+                                @php
+                                $features = [
+                                'Evidence-based informatie en methoden',
+                                'Hulpmiddelen voor iedereen',
+                                'Regelmatige workshops en webinars',
+                                ];
+                                @endphp
+
+                                @foreach($features as $feature)
+                                <div class="flex items-center gap-3">
+                                    <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                        <span class="text-green-600 text-xs">✔</span>
+                                    </div>
+                                    <span class="text-gray-700">{{ $feature }}</span>
+                                </div>
+                                @endforeach
+                            </div>
+
+                            <div class="pt-4">
+                                <a href="http://127.0.0.1:8000/about"
+                                    class="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium
+                                      bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                                    Lees meer over ons
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section class="py-20 bg-white">
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,12 +199,11 @@
 
                         <div class="space-y-4">
 
-                            <!-- PDF block -->
+
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-blue-100 rounded-lg">
-                                    <!-- Download icon -->
                                     <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2h16v-2M12 4v12m0 0l4-4m-4 4l-4-4" />
+
                                     </svg>
                                 </div>
                                 <div>
@@ -157,12 +212,10 @@
                                 </div>
                             </div>
 
-                            <!-- Video block -->
+
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-purple-100 rounded-lg">
-                                    <!-- Video icon -->
                                     <svg class="h-5 w-5 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m0-4v4m0-4L9 6m6 4l-6 4" />
                                     </svg>
                                 </div>
                                 <div>
@@ -171,13 +224,10 @@
                                 </div>
                             </div>
 
-                            <!-- Lock block -->
+
                             <div class="flex items-start gap-3">
                                 <div class="mt-1 p-2 bg-pink-100 rounded-lg">
-                                    <!-- Lock icon -->
                                     <svg class="h-5 w-5 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 0h12V11a4 4 0 00-8 0v6z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0v4" />
                                     </svg>
                                 </div>
                                 <div>
@@ -192,10 +242,8 @@
                         <a href="http://127.0.0.1:8000/platform"
                             class="inline-flex items-center px-6 py-3 text-white text-lg rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-700">
 
-                            <!-- Folder icon -->
-                            <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h5l2 2h11v10H3z" />
-                            </svg>
+
+
 
                             Bekijk Materialen
 
@@ -209,71 +257,6 @@
                 </div>
             </section>
 
-        </section>
-
-        <section id="over" class="py-20 bg-gray-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="relative order-2 lg:order-1">
-                        <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-slate-200">
-                            <img
-                                src="https://images.unsplash.com/photo-1565373086464-c8af0d586c0c?auto=format&fit=crop&w=1200&q=80"
-                                alt="Learning support"
-                                class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <div class="space-y-6 order-1 lg:order-2">
-                        <div class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-                            Over ons
-                        </div>
-
-                        <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900">
-                            Wij kijken anders naar autisme
-                        </h2>
-
-                        <h3 class="text-lg font-semibold text-[#4bafe8]">
-                            Jouw Autisme: de sleutel tot meer ondersteuning en begrip
-                        </h3>
-
-                        <p class="text-gray-700 text-base sm:text-lg">
-                            Bij Jouw Autisme geloven we in een nieuwe manier van kijken naar autisme. Jongeren met
-                            autisme verwerken informatie op hun eigen unieke manier en ervaren de wereld anders.
-                            Onze missie is om hen te ondersteunen en sterk te maken zodat ze hun eigen weg vinden in
-                            een wereld die niet altijd op hen is afgestemd.
-                        </p>
-
-                        <div class="space-y-3 text-sm sm:text-base">
-                            @php
-                            $features = [
-                            'Evidence-based informatie en methoden',
-                            'Persoonlijke begeleiding en ondersteuning',
-                            'Toegang tot een netwerk van professionals',
-                            'Hulpmiddelen voor het hele gezin',
-                            'Regelmatige workshops en webinars',
-                            ];
-                            @endphp
-
-                            @foreach($features as $feature)
-                            <div class="flex items-center gap-3">
-                                <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                    <span class="text-green-600 text-xs">✔</span>
-                                </div>
-                                <span class="text-gray-700">{{ $feature }}</span>
-                            </div>
-                            @endforeach
-                        </div>
-
-                        <div class="pt-4">
-                            <a href="https://teams.microsoft.com/meet/33325878468841?p=VhmqHeB88rT1v4zhrK"
-                                class="inline-flex items-center px-6 py-3 rounded-md text-sm font-medium
-                                      bg-purple-600 text-white hover:bg-purple-700 transition-colors">
-                                Lees meer over ons
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         @include('layouts.footer')

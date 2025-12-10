@@ -160,7 +160,7 @@
             let currentIndex = 0;
             const itemsPerPage = 10;
 
-            // Verberg alle kaarten eerst
+            // Verstop kaarten eerst
             cardsArray.forEach(c => c.style.display = 'none');
 
             function showItems() {
