@@ -125,6 +125,90 @@
                     </article>
                 </div>
             </div>
+
+            <section class="py-20 bg-white">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="space-y-6">
+
+
+
+                        <h2 class="text-3xl lg:text-4xl">
+                            Toegang tot professionele materialen
+                        </h2>
+
+                        <p class="text-gray-600 text-lg">
+                            Bekijk en download trainingsmaterialen, handleidingen, video's en meer.
+                            Alle content is zorgvuldig beheerd met rolgebaseerde toegangscontrole.
+                        </p>
+
+                        <div class="space-y-4">
+
+                            <!-- PDF block -->
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-blue-100 rounded-lg">
+                                    <!-- Download icon -->
+                                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2h16v-2M12 4v12m0 0l4-4m-4 4l-4-4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-gray-900">PDFs & Documenten</div>
+                                    <div class="text-gray-600">Download materialen voor offline gebruik</div>
+                                </div>
+                            </div>
+
+                            <!-- Video block -->
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-purple-100 rounded-lg">
+                                    <!-- Video icon -->
+                                    <svg class="h-5 w-5 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m0-4v4m0-4L9 6m6 4l-6 4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-gray-900">Video's & YouTube</div>
+                                    <div class="text-gray-600">Bekijk trainingsvideos en webinars</div>
+                                </div>
+                            </div>
+
+                            <!-- Lock block -->
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 p-2 bg-pink-100 rounded-lg">
+                                    <!-- Lock icon -->
+                                    <svg class="h-5 w-5 text-pink-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 0h12V11a4 4 0 00-8 0v6z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0v4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-gray-900">Beveiligde Toegang</div>
+                                    <div class="text-gray-600">Rolgebaseerde permissies voor elk materiaal</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <a href="http://127.0.0.1:8000/platform"
+                            class="inline-flex items-center px-6 py-3 text-white text-lg rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-700">
+
+                            <!-- Folder icon -->
+                            <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h5l2 2h11v10H3z" />
+                            </svg>
+
+                            Bekijk Materialen
+
+                            <!-- ArrowRight icon -->
+                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+
         </section>
 
         <section id="over" class="py-20 bg-gray-50">

@@ -201,6 +201,10 @@
                                         <button
                                             type="button"
                                             class="p-2 rounded-full border border-gray-200 text-gray-600 hover:bg-gray-50 open-access-modal"
+                                            data-action="{{ route('materials.access.update', $material->id) }}"
+                                            data-view-roles="{{ $material->access->where('can_view', 1)->pluck('role_id')->join(',') }}"
+                                            data-download-roles="{{ $material->access->where('can_download', 1)->pluck('role_id')->join(',') }}"
+                                            title="Toegangsrechten beheren"
                                         >
                                             <svg
                                                 class="h-4 w-4"
@@ -215,10 +219,30 @@
                                                     stroke-linejoin="round"
                                                     fill-rule="evenodd"
                                                     clip-rule="evenodd"
-                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
                                                 />
                                             </svg>
                                         </button>
+
+                                        <form
+                                            action="{{ route('materials.destroy', $material->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Weet je zeker dat je dit materiaal wilt verwijderen?');"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="submit"
+                                                class="p-2 rounded-full border border-red-200 text-red-600 hover:bg-red-50"
+                                                title="Materiaal verwijderen"
+                                            >
+                                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 7h12M10 11v6m4-6v6M9 7l1-2h4l1 2m-9 0h10v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </article>
@@ -516,61 +540,49 @@
                 </div>
 
                 <div class="px-6 py-4 space-y-4 max-h-[70vh] overflow-y-auto">
-                    <h3 class="mt-4 font-semibold text-gray-800">Gebruikerstoegang</h3>
+                    <form id="accessForm" method="POST">
+                        @csrf
 
-                   <!-- gebruikers -->
-                    <div class="border rounded-lg px-4 py-3 flex items-center justify-between">
-                        <div>
-                            <p class="font-medium">Trainer</p>
-                        </div>
-                        <div class="flex items-center gap-4 text-sm">
-                            <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>PDF</span>
-                            </label>
-                            <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>Word</span>
-                            </label>
-                                <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>MP3</span>
-                            </label>
-                                <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>Video</span>
-                            </label>
-                        </div>
-                    </div>
+                        <h3 class="mt-4 font-semibold text-gray-800">Gebruikerstoegang</h3>
+                        <p class="text-xs text-gray-500 mb-2">
+                            Stel per rol in of ze dit materiaal mogen bekijken en/of downloaden.
+                        </p>
 
-                    <div class="border rounded-lg px-4 py-3 flex items-center justify-between">
-                        <div>
-                            <p class="font-medium">Ouders</p>
-                        </div>
-                        <div class="flex items-center gap-4 text-sm">
-                            <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>PDF</span>
-                            </label>
-                            <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>Word</span>
-                            </label>
-                                <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>MP3</span>
-                            </label>
-                                <label class="flex items-center gap-1">
-                                <input type="checkbox" class="h-4 w-4">
-                                <span>Video</span>
-                            </label>
-                        </div>
-                    </div>
+                        <div class="overflow-hidden rounded-2xl border border-gray-200">
+                            <div class="grid grid-cols-[2fr,1fr,1fr] bg-gray-50 text-sm font-medium text-gray-700 px-4 py-2">
+                                <span>Rol</span>
+                                <span class="text-center">Mag bekijken</span>
+                                <span class="text-center">Mag downloaden</span>
+                            </div>
 
-                    {{-- hier kun je een @foreach over users doen --}}
+                            @foreach($data['roles'] as $role)
+                                <div class="grid grid-cols-[2fr,1fr,1fr] items-center px-4 py-2 text-sm border-t border-gray-100">
+                                    <span>{{ ucfirst($role->role_name) }}</span>
+                                    <span class="flex justify-center">
+                                        <input
+                                            type="checkbox"
+                                            class="rounded access-view-checkbox"
+                                            name="can_view[]"
+                                            value="{{ $role->id }}"
+                                        >
+                                    </span>
+                                    <span class="flex justify-center">
+                                        <input
+                                            type="checkbox"
+                                            class="rounded access-download-checkbox"
+                                            name="can_download[]"
+                                            value="{{ $role->id }}"
+                                        >
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </form>
                 </div>
+
                 <div class="px-6 py-4 border-t bg-gray-50 flex justify-end">
                     <button
+                        form="accessForm"
                         class="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700"
                     >
                         Toegangsrechten Opslaan
@@ -619,15 +631,39 @@
             setActiveTab('materials');
         });
 // pop up modal
-        document.addEventListener("DOMContentLoaded", () => {
-        const modal   = document.getElementById("accessModal");
-        const openBtn = document.getElementById("openAccessModal");
-        const closeBtn = document.getElementById("closeAccessModal");
-        const closeBg = document.getElementById("closeAccessModalOverlay");
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal        = document.getElementById("accessModal");
+        const closeBtn     = document.getElementById("closeAccessModal");
+        const closeBg      = document.getElementById("closeAccessModalOverlay");
+        const openButtons  = document.querySelectorAll(".open-access-modal");
+        const accessForm   = document.getElementById("accessForm");
 
-        if (!modal || !openBtn) return;
+        if (!modal || !accessForm) return;
 
-        function openModal() {
+        const viewCheckboxes     = accessForm.querySelectorAll(".access-view-checkbox");
+        const downloadCheckboxes = accessForm.querySelectorAll(".access-download-checkbox");
+
+        function openModalFor(button) {
+            const action        = button.dataset.action;
+            const viewRolesRaw  = button.dataset.viewRoles || "";
+            const downloadRaw   = button.dataset.downloadRoles || "";
+
+            const viewRoles     = viewRolesRaw.split(',').filter(Boolean);
+            const downloadRoles = downloadRaw.split(',').filter(Boolean);
+
+            // Form action instellen
+            accessForm.action = action;
+
+            // Alle checkboxes eerst leegmaken en opnieuw zetten
+            viewCheckboxes.forEach(cb => {
+                cb.checked = viewRoles.includes(cb.value);
+            });
+
+            downloadCheckboxes.forEach(cb => {
+                cb.checked = downloadRoles.includes(cb.value);
+            });
+
+            // Modal tonen
             modal.classList.remove("hidden");
             modal.setAttribute("aria-hidden", "false");
         }
@@ -637,9 +673,16 @@
             modal.setAttribute("aria-hidden", "true");
         }
 
-        openBtn.addEventListener("click", openModal);
-        closeBtn.addEventListener("click", closeModal);
-        closeBg.addEventListener("click", closeModal);
+        openButtons.forEach(btn => {
+            btn.addEventListener("click", () => openModalFor(btn));
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", closeModal);
+        }
+        if (closeBg) {
+            closeBg.addEventListener("click", closeModal);
+        }
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape" && !modal.classList.contains("hidden")) {
@@ -647,6 +690,7 @@
             }
         });
     });
+
 
     document.addEventListener('DOMContentLoaded', function () {
     const typeSelect = document.getElementById('material_type_id');
