@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriaalController;
 use App\Http\Controllers\OverzichtController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\User;
 use App\Models\Certificate;
 
 Route::get('/register', function (RegisterController $controller) {
@@ -69,15 +70,8 @@ Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.pos
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
 Route::post('/user/deactivate/{id}', [AccountStatusController::class, 'deactivate'])->name('user.deactivate');
-Route::post('/user/activate/{id}', [AccountStatusController::class, 'activate'])->name('user.deactivate');
+Route::post('/user/activate/{id}', [AccountStatusController::class, 'activate'])->name('user.activate');
 Route::post('/certificate', [certificateController::class, 'insertCertificate'])->name('insert.certificate');
-
-Route::get('/admin/dashboard', function (MateriaalController $controller, PendingController $UserController) {
-    $data = $controller->showAll();
-    $UserData = $UserController->ShowAllPendingUsers();
-
-    return view('Admin_dashboard', compact('data', 'UserData'));
-})->name('admin.dashboard')->middleware(AdminMiddleware::class);
 
 Route::post('/materials/{id}/access', [MateriaalController::class, 'updateAccess'])->name('materials.access.update');
 
@@ -90,3 +84,19 @@ Route::get('/trainer', function () {
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::delete('/admin/users/{id}', [AccountStatusController::class, 'destroy'])
+    ->name('users.destroy')
+    ->middleware(AdminMiddleware::class);
+
+Route::get('/admin/dashboard', function (
+    MateriaalController $controller,
+    PendingController $UserController
+) {
+    $data         = $controller->showAll();
+    $UserData     = $UserController->ShowAllPendingUsers();
+    $Users        = User::with('roles')->get();
+
+    return view('Admin_dashboard', compact('data', 'UserData', 'Users'));
+})->name('admin.dashboard')->middleware(AdminMiddleware::class);
+

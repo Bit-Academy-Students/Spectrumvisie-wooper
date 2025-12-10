@@ -79,6 +79,38 @@
                         </svg>
                         <span>Gebruikers</span>
                     </button>
+
+                    <button
+                        type="button"
+                        class="tab-trigger flex-1 inline-flex items-center justify-center gap-2 text-sm font-medium rounded-full px-4 py-2.5
+                            bg-transparent text-gray-600 border border-transparent hover:bg-white/70 hover:text-gray-900"
+                        data-tab-target="accounts"
+                        aria-selected="false"
+                    >
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span>Accountstatus</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="tab-trigger flex-1 inline-flex items-center justify-center gap-2 text-sm font-medium rounded-full px-4 py-2.5
+                            bg-transparent text-gray-600 border border-transparent hover:bg-white/70 hover:text-gray-900"
+                        data-tab-target="certificates"
+                        aria-selected="false"
+                    >
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 17.25l-3.5-2-3.5 2V5.75A2.75 2.75 0 0111.5 3h1a2.75 2.75 0 012.75 2.75v11.5z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.75 21l2.25-1.5L14.25 21" />
+                        </svg>
+                        <span>Certificaten</span>
+                    </button>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -458,7 +490,7 @@
                         </div>
                     </form>
                 </section>
-                    <section class="tab-panel space-y-4 hidden" data-tab-panel="users">
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="users">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div>
                                 <h2 class="text-lg font-semibold">Gebruikersbeheer</h2>
@@ -466,12 +498,6 @@
                                     Beheer gebruikers, rollen en toegangsrechten.
                                 </p>
                             </div>
-                            <button
-                                type="button"
-                                class="inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Nieuwe gebruiker
-                            </button>
                         </div>
 
                         <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mt-2">
@@ -507,11 +533,116 @@
                                             </td>
                                         </tr>
                                     @endforeach
-<!-- foreach voor users trainers en admin enzo -->
                                 </tbody>
                             </table>
                         </div>
                     </section>
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="accounts">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">Accountstatus</h2>
+                            <p class="text-sm text-gray-600">
+                                Bekijk of gebruikers actief of inactief zijn en verwijder accounts indien nodig.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mt-2">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Naam</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">E-mail</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Rol</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Status</th>
+                                <th class="px-4 py-2 text-right font-medium text-gray-600">Acties</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach($Users as $user)
+                                    @php
+                                        $isActive = (bool) ($user->is_active ?? false);
+                                    @endphp
+                                    <tr>
+                                        <td class="px-4 py-3">{{ $user->name }}</td>
+                                        <td class="px-4 py-3">{{ $user->email }}</td>
+                                        <td class="px-4 py-3">{{ $user->roles->role_name }}</td>
+                                        <td class="px-4 py-3">
+                                            @if($isActive)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                                                    Actief
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                                                    Inactief
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3 text-right space-x-3">
+                                            <form
+                                                action="{{ route('users.destroy', $user->id) }}"
+                                                method="POST"
+                                                class="inline"
+                                                onsubmit="return confirm('Weet je zeker dat je dit account permanent wilt verwijderen?');"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    type="submit"
+                                                    class="text-red-600 hover:text-red-800 text-xs"
+                                                >
+                                                    Verwijderen
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                    </div>
+                </section>
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="certificates">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">Certificaten</h2>
+                            <p class="text-sm text-gray-600">
+                                Vul hier een certificaatcode in. De verdere verwerking wordt later door de backend gedaan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form
+                        method="POST"
+                        class="space-y-3 max-w-md"
+                    >
+                        @csrf
+
+                        <div>
+                            <label for="certificate_code" class="block text-sm font-medium text-gray-700 mb-1">
+                                Certificaatcode
+                            </label>
+                            <input
+                                id="certificate_code"
+                                type="text"
+                                name="certificate_code"
+                                class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm shadow-sm
+                                    focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="Bijv. ABCD-1234"
+                            >
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-white
+                                bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Versturen
+                        </button>
+                    </form>
+                </section>
+
                 </div>
             </div>
         </div>
