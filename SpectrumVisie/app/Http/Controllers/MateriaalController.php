@@ -11,7 +11,7 @@ use App\Models\MaterialAccess;
 
 class MateriaalController extends Controller
 {
-    public function showAll()
+    public function showAll()   
     {
         return [
             'types'      => MaterialType::all(),
