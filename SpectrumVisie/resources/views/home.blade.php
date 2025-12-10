@@ -129,10 +129,10 @@
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
                         <div class="relative order-2 lg:order-1">
                             <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-slate-200">
-                                <img
-                                    src="https://images.unsplash.com/photo-1565373086464-c8af0d586c0c?auto=format&fit=crop&w=1200&q=80"
-                                    alt="Learning support"
-                                    class="w-full h-full object-cover">
+                                <img src="/images/tieners.jpg" alt="Tieners">
+
+                                alt="Learning support"
+                                class="w-full h-full object-cover">
                             </div>
                         </div>
 
