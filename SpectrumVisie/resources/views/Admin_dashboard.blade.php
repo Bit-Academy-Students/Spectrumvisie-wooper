@@ -578,24 +578,43 @@
                                                 </span>
                                             @endif
                                         </td>
+                                        @if($isActive)
+                                            <td class="px-4 py-3 text-right space-x-3">
+                                                <form
+                                                    action="{{ route('user.deactivate', $user->id) }}"
+                                                    method="POST"
+                                                    class="inline"
+                                                    onsubmit="return confirm('Weet je zeker dat je dit account wilt deactiveren?');"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        type="submit"
+                                                        class="text-red-600 hover:text-red-800 text-xs"
+                                                    >
+                                                        Deactiveer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @else
                                         <td class="px-4 py-3 text-right space-x-3">
                                             <form
-                                                action="{{ route('users.destroy', $user->id) }}"
+                                                action="{{ route('user.activate', $user->id) }}"
                                                 method="POST"
                                                 class="inline"
-                                                onsubmit="return confirm('Weet je zeker dat je dit account permanent wilt verwijderen?');"
+                                                onsubmit="return confirm('Weet je zeker dat je dit account wilt activeren?');"
                                             >
                                                 @csrf
-                                                @method('DELETE')
                                                 <button
                                                     type="submit"
-                                                    class="text-red-600 hover:text-red-800 text-xs"
+                                                    class="text-green-600 hover:text-green-800 text-xs"
                                                 >
-                                                    Verwijderen
+                                                    Activeer
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
 
