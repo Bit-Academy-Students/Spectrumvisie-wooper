@@ -110,7 +110,7 @@
         <div class="max-w-3xl mx-auto text-center flex flex-col items-center">
             <h2 class="text-3xl md:text-4xl mb-4">Klaar om te Beginnen?</h2>
             <p class="text-xl mb-8 text-blue-100">
-                Schrijf je vandaag nog in en start jouw reis naar een betekenisvolle carrière.
+                Schrijf je vandaag nog in voor jouw pshyco-educatie training.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -126,8 +126,7 @@
         </div>
     </section>
 
-    <footer class="w-full py-6 bg-gray-100 text-center text-gray-600">
-    </footer>
+    @include('layouts.footer')
 
 </body>
 
