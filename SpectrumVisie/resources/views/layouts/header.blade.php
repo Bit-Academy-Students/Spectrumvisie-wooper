@@ -10,7 +10,7 @@
                 </a>
             </div>
 
-            =
+
             <div class="hidden md:flex flex-1 justify-center">
                 <div class="flex items-center gap-8 text-sm">
                     <a href="{{ url('/') }}"

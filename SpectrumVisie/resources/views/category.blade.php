@@ -11,7 +11,7 @@
 </head>
 
 <body class="bg-gray-50 text-gray-900">
-
+    @include('layouts.header')
     @php
     // $userRole = auth()->user()->role_id;
     @endphp
