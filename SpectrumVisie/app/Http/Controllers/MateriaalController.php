@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class MateriaalController extends Controller
 {
-public function showAll()
-{
-    return [
-        'types'      => MaterialType::all(),
-        'roles'      => Roles::where('role_name', '!=', 'admin')->get(),
-        'categories' => Category::all(),
-        'materiaal'  => Materiaal::with(['materialType', 'category', 'access'])->get(),
-    ];
-}
+    public function showAll()
+    {
+        return [
+            'types'      => MaterialType::all(),
+            'roles'      => Roles::where('role_name', '!=', 'admin')->get(),
+            'categories' => Category::all(),
+            'materiaal'  => Materiaal::with(['materialType', 'category', 'access'])->get(),
+        ];
+    }
 
     protected function youtubeEmbedUrl($url)
     {
@@ -105,7 +105,6 @@ public function showAll()
                     ->withErrors(['URL' => 'Ongeldige YouTube URL.'])
                     ->withInput();
             }
-
         } elseif ($type === 'artikel') {
 
             if (empty($url)) {
@@ -181,18 +180,17 @@ public function showAll()
     }
 
     public function destroy($id)
-{
-    $materiaal = Materiaal::findOrFail($id);
+    {
+        $materiaal = Materiaal::findOrFail($id);
 
-    MaterialAccess::where('materiaal_id', $materiaal->id)->delete();
+        MaterialAccess::where('materiaal_id', $materiaal->id)->delete();
 
-    if ($materiaal->file_path) {
-        Storage::disk('private')->delete($materiaal->file_path);
+        if ($materiaal->file_path) {
+            Storage::disk('private')->delete($materiaal->file_path);
+        }
+
+        $materiaal->delete();
+
+        return back()->with('success', 'Materiaal verwijderd.');
     }
-
-    $materiaal->delete();
-
-    return back()->with('success', 'Materiaal verwijderd.');
-}
-
 }
