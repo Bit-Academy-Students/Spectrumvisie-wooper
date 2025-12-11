@@ -54,7 +54,11 @@ npm install
 4. Run migraties en seeders om de database op te zetten: 
 ```
 php artisan migrate --seed
-```  
+``` 
+en 
+``` 
+php artisan storage:link
+```
 5. Start de applicatie met: 
 ```
 php artisan serve
