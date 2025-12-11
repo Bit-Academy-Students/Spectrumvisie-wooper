@@ -19,7 +19,7 @@
             <p class="text-xl md:text-2xl mb-8 text-blue-100">
                 Word gecertificeerd Jouw Autisme Trainer!
             </p>
-            <a href="https://jouwautisme.nl" target="_blank"
+            <a href="https://jouwautisme.nl/bestel-de-jouw-autisme-methodiek/" target="_blank"
                 class="bg-white text-blue-600 hover:bg-gray-100 inline-flex items-center text-lg px-8 py-4 rounded-lg">
                 Schrijf je nu in →
             </a>
@@ -114,7 +114,7 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="https://jouwautisme.nl" target="_blank"
+                <a href="https://jouwautisme.nl/bestel-de-jouw-autisme-methodiek/" target="_blank"
                     class="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4 rounded-lg inline-block">
                     Schrijf je in →
                 </a>
