@@ -79,6 +79,38 @@
                         </svg>
                         <span>Gebruikers</span>
                     </button>
+
+                    <button
+                        type="button"
+                        class="tab-trigger flex-1 inline-flex items-center justify-center gap-2 text-sm font-medium rounded-full px-4 py-2.5
+                            bg-transparent text-gray-600 border border-transparent hover:bg-white/70 hover:text-gray-900"
+                        data-tab-target="accounts"
+                        aria-selected="false"
+                    >
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span>Accountstatus</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="tab-trigger flex-1 inline-flex items-center justify-center gap-2 text-sm font-medium rounded-full px-4 py-2.5
+                            bg-transparent text-gray-600 border border-transparent hover:bg-white/70 hover:text-gray-900"
+                        data-tab-target="certificates"
+                        aria-selected="false"
+                    >
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 17.25l-3.5-2-3.5 2V5.75A2.75 2.75 0 0111.5 3h1a2.75 2.75 0 012.75 2.75v11.5z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.75 21l2.25-1.5L14.25 21" />
+                        </svg>
+                        <span>Certificaten</span>
+                    </button>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -94,29 +126,20 @@
                         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                             <div class="relative flex-1">
                                 <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
-                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"/>
-                                    </svg>
                                 </span>
-                                <input
-                                    type="text"
-                                    placeholder="Zoek materialen..."
-                                    class="w-full pl-9 pr-3 py-2 rounded-full border border-gray-200 text-sm bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
-                                >
                             </div>
 
                             <div>
                                 <select
+                                    id="materialTypeFilter"
                                     class="w-full sm:w-40 px-3 py-2 rounded-full border border-gray-200 text-sm bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
                                 >
-                                    <option>Alle types</option>
-                                    <option>PDF</option>
-                                    <option>Video</option>
-                                    <option>Word</option>
-                                    <option>Artikel</option>
-                                    <option>YouTube</option>
+                                    <option value="all">Alle types</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="word">Word</option>
+                                    <option value="artikel">Artikel</option>
+                                    <option value="youtube-link">YouTube</option>
                                 </select>
                             </div>
                         </div>
@@ -126,6 +149,7 @@
                         @forelse($data['materiaal'] as $material)
                             @php
                                 $type = strtolower(optional($material->materialType)->type ?? '');
+
                                 $typeLabel = match ($type) {
                                     'pdf'          => 'PDF',
                                     'word'         => 'Word',
@@ -135,28 +159,36 @@
                                     default        => 'Bestand',
                                 };
 
-                                $downloadUrl   = '#';
-                                $downloadLabel = 'Download';
+                                $iconPath  = optional($material->materialType)->icon;
+                                $thumbnail = $iconPath
+                                    ? asset($iconPath)
+                                    : asset('icons/default.png');
+
+                                $downloadUrl    = '#';
+                                $downloadLabel  = 'Download';
                                 $downloadTarget = '_self';
 
                                 if (in_array($type, ['pdf', 'word', 'video']) && $material->file_path) {
-                                    $downloadUrl = asset('storage/' . $material->file_path);
+                                    $downloadUrl   = asset('storage/' . $material->file_path);
                                     $downloadLabel = 'Download';
                                 } elseif ($type === 'youtube-link' && $material->URL) {
-                                    $downloadUrl = $material->URL;
-                                    $downloadLabel = 'Bekijk video';
+                                    $downloadUrl    = $material->URL;
+                                    $downloadLabel  = 'Bekijk video';
                                     $downloadTarget = '_blank';
                                 } elseif ($type === 'artikel' && $material->URL) {
-                                    $downloadUrl = $material->URL;
-                                    $downloadLabel = 'Open artikel';
+                                    $downloadUrl    = $material->URL;
+                                    $downloadLabel  = 'Open artikel';
                                     $downloadTarget = '_blank';
                                 }
                             @endphp
 
-                            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                            <article
+                                class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col material-card"
+                                data-type="{{ $type }}"
+                            >
                                 <div class="relative h-40 bg-gray-200">
                                     <img
-                                        src="https://via.placeholder.com/800x400"
+                                        src="{{ $thumbnail }}"
                                         alt="{{ $material->title ?? 'Materiaal' }}"
                                         class="w-full h-full object-cover"
                                     >
@@ -167,12 +199,10 @@
                                         {{ $typeLabel }}
                                     </span>
                                 </div>
-
                                 <div class="p-4 flex-1 flex flex-col">
                                     <h3 class="font-semibold text-sm mb-1">
                                         {{ $material->title ?? 'Zonder titel' }}
                                     </h3>
-
                                     <p class="text-sm text-gray-600 mb-3">
                                         {{ $material->description }}
                                     </p>
@@ -219,8 +249,7 @@
                                                     stroke-linejoin="round"
                                                     fill-rule="evenodd"
                                                     clip-rule="evenodd"
-                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                                                />
+                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z" />
                                             </svg>
                                         </button>
 
@@ -239,7 +268,12 @@
                                                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 7h12M10 11v6m4-6v6M9 7l1-2h4l1 2m-9 0h10v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z"/>
+                                                    d="M9.1709 4C9.58273 2.83481 10.6942 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4
+                                                    M20.5001 6H3.5
+                                                    M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.16644 8.5
+                                                    M9.5 11L10 16
+                                                    M14.5 11L14 16
+                                                    "/>
                                                 </svg>
                                             </button>
                                         </form>
@@ -458,7 +492,7 @@
                         </div>
                     </form>
                 </section>
-                    <section class="tab-panel space-y-4 hidden" data-tab-panel="users">
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="users">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div>
                                 <h2 class="text-lg font-semibold">Gebruikersbeheer</h2>
@@ -466,12 +500,6 @@
                                     Beheer gebruikers, rollen en toegangsrechten.
                                 </p>
                             </div>
-                            <button
-                                type="button"
-                                class="inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Nieuwe gebruiker
-                            </button>
                         </div>
 
                         <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mt-2">
@@ -507,11 +535,136 @@
                                             </td>
                                         </tr>
                                     @endforeach
-<!-- foreach voor users trainers en admin enzo -->
                                 </tbody>
                             </table>
                         </div>
                     </section>
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="accounts">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">Accountstatus</h2>
+                            <p class="text-sm text-gray-600">
+                                Bekijk of gebruikers actief of inactief zijn en verwijder accounts indien nodig.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mt-2">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Naam</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">E-mail</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Rol</th>
+                                <th class="px-4 py-2 text-left font-medium text-gray-600">Status</th>
+                                <th class="px-4 py-2 text-right font-medium text-gray-600">Acties</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach($Users as $user)
+                                    @php
+                                        $isActive = (bool) ($user->is_active ?? false);
+                                    @endphp
+                                    <tr>
+                                        <td class="px-4 py-3">{{ $user->name }}</td>
+                                        <td class="px-4 py-3">{{ $user->email }}</td>
+                                        <td class="px-4 py-3">{{ $user->roles->role_name }}</td>
+                                        <td class="px-4 py-3">
+                                            @if($isActive)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                                                    Actief
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                                                    Inactief
+                                                </span>
+                                            @endif
+                                        </td>
+                                        @if($isActive)
+                                            <td class="px-4 py-3 text-right space-x-3">
+                                                <form
+                                                    action="{{ route('user.deactivate', $user->id) }}"
+                                                    method="POST"
+                                                    class="inline"
+                                                    onsubmit="return confirm('Weet je zeker dat je dit account wilt deactiveren?');"
+                                                >
+                                                    @csrf
+                                                    <button
+                                                        type="submit"
+                                                        class="text-red-600 hover:text-red-800 text-xs"
+                                                    >
+                                                        Deactiveer
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <td class="px-4 py-3 text-right space-x-3">
+                                            <form
+                                                action="{{ route('user.activate', $user->id) }}"
+                                                method="POST"
+                                                class="inline"
+                                                onsubmit="return confirm('Weet je zeker dat je dit account wilt activeren?');"
+                                            >
+                                                @csrf
+                                                <button
+                                                    type="submit"
+                                                    class="text-green-600 hover:text-green-800 text-xs"
+                                                >
+                                                    Activeer
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                    </div>
+                </section>
+                <section class="tab-panel space-y-4 hidden" data-tab-panel="certificates">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">Certificaten</h2>
+                            <p class="text-sm text-gray-600">
+                                Vul hier een certificaatcode in.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form
+                            action="{{ route('insert.certificate') }}"
+                        method="POST"
+                        class="space-y-3 max-w-md"
+                    >
+                        @csrf
+
+                        <div>
+                            <label for="certificaat" class="block text-sm font-medium text-gray-700 mb-1">
+                                Certificaatcode
+                            </label>
+                            <input
+                                id="certificaat"
+                                type="text"
+                                name="certificaat"
+                                class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm shadow-sm
+                                    focus:bg-white focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="Bijv. ABCD-1234"
+                            >
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-white
+                                bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                                focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Versturen
+                        </button>
+                    </form>
+                </section>
+
                 </div>
             </div>
         </div>
@@ -735,6 +888,27 @@
 
         typeSelect.addEventListener('change', updateMaterialInputs);
         updateMaterialInputs();
+    });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const filterSelect = document.getElementById('materialTypeFilter');
+        const cards        = document.querySelectorAll('.material-card');
+
+        if (!filterSelect) return;
+
+        filterSelect.addEventListener('change', function () {
+            const selected = this.value;
+
+            cards.forEach(card => {
+                const type = card.dataset.type || '';
+
+                if (selected === 'all' || type === selected) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
     });
     </script>
 </body>
