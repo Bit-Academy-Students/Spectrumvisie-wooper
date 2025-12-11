@@ -11,7 +11,7 @@
 </head>
 
 <body class="bg-gray-50 text-gray-900">
-
+    @include('layouts.header')
     @php
     // $userRole = auth()->user()->role_id;
     @endphp
@@ -160,7 +160,7 @@
             let currentIndex = 0;
             const itemsPerPage = 10;
 
-            // Verberg alle kaarten eerst
+            // Verstop kaarten eerst
             cardsArray.forEach(c => c.style.display = 'none');
 
             function showItems() {

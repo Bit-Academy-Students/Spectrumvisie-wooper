@@ -11,7 +11,7 @@
 </head>
 
 <body class="bg-gray-50 text-gray-900">
-
+    @include('layouts.header')
     <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
 
         <!-- Titel -->

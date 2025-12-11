@@ -9,9 +9,9 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+    @include('layouts.header')
 
-
-    <!-- Top section -->
+    <!-- Top sectie -->
     <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div class="container mx-auto px-4 max-w-6xl text-center space-y-4">
             <h1 class="text-4xl md:text-5xl font-bold">Jouw Autisme Materiaal Platform</h1>
@@ -195,6 +195,7 @@
         </div>
 
     </div>
+
     <script>
         const slider = document.getElementById('slider');
         const prevBtn = document.getElementById('prevBtn');
@@ -224,6 +225,7 @@
             updateSlider();
         });
     </script>
+    @include('layouts.footer')
 </body>
 
 </html>
