@@ -262,33 +262,7 @@
         @include('layouts.footer')
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileToggles = document.querySelectorAll('[data-mobile-menu-toggle]');
-            const mobileMenu = document.querySelector('[data-mobile-menu]');
-            mobileToggles.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (mobileMenu) {
-                        mobileMenu.classList.toggle('hidden');
-                    }
-                });
-            });
 
-            const userToggle = document.querySelector('[data-user-menu-toggle]');
-            const userMenu = document.querySelector('[data-user-menu]');
-            if (userToggle && userMenu) {
-                userToggle.addEventListener('click', () => {
-                    userMenu.classList.toggle('hidden');
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!userMenu.contains(e.target) && !userToggle.contains(e.target)) {
-                        userMenu.classList.add('hidden');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>

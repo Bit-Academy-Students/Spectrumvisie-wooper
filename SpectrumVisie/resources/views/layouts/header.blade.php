@@ -27,12 +27,12 @@
                     </a>
 
                     @if (Auth::user())
-                        @if (Auth::user()->role_id == 1)
-                            <a href="{{ url('/admin/dashboard') }}"
-                                class="block px-2 py-1 text-gray-700 hover:text-blue-600">
-                                Dashboard
-                            </a>
-                        @endif
+                    @if (Auth::user()->role_id == 1)
+                    <a href="{{ url('/admin/dashboard') }}"
+                        class="block px-2 py-1 text-gray-700 hover:text-blue-600">
+                        Dashboard
+                    </a>
+                    @endif
                     @endif
                 </div>
             </div>
@@ -55,21 +55,21 @@
                     <div class="hidden absolute right-0 mt-2 w-44 rounded-md bg-white shadow-lg ring-1 ring-black/5 py-1 text-sm"
                         data-user-menu>
                         @guest
-                            <a href="{{ url('/login') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                Inloggen
-                            </a>
-                            <a href="{{ url('/register') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                Account aanmaken
-                            </a>
+                        <a href="{{ url('/login') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
+                            Inloggen
+                        </a>
+                        <a href="{{ url('/register') }}" class="block px-3 py-2 text-gray-700 hover:bg-gray-100">
+                            Account aanmaken
+                        </a>
                         @endguest
 
                         @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    Uitloggen
-                                </button>
-                            </form>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100">
+                                Uitloggen
+                            </button>
+                        </form>
                         @endauth
                     </div>
                 </div>
@@ -117,4 +117,31 @@
             </div>
         </div>
     </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileToggles = document.querySelectorAll('[data-mobile-menu-toggle]');
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+            mobileToggles.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (mobileMenu) {
+                        mobileMenu.classList.toggle('hidden');
+                    }
+                });
+            });
+
+            const userToggle = document.querySelector('[data-user-menu-toggle]');
+            const userMenu = document.querySelector('[data-user-menu]');
+            if (userToggle && userMenu) {
+                userToggle.addEventListener('click', () => {
+                    userMenu.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!userMenu.contains(e.target) && !userToggle.contains(e.target)) {
+                        userMenu.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
 </header>
