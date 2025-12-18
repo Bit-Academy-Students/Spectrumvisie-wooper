@@ -66,7 +66,7 @@ Route::get('/certficaat', function () {
 Route::post('/register', [RegisterController::class, 'Register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('/upload', [MateriaalController::class, 'upload'])->name('upload.post');
+Route::post('/upload', [MateriaalController::class, 'upload'])->middleware(['auth', AdminMiddleware::class])->name('upload.post');
 Route::post('/pending/accept/{id}', [PendingController::class, 'AcceptUser'])->name('pending.accept');
 Route::post('/pending/reject/{id}', [PendingController::class, 'RejectUser'])->name('pending.reject');
 Route::post('/user/deactivate/{id}', [AccountStatusController::class, 'deactivate'])->name('user.deactivate');
