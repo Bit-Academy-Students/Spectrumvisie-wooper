@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Roles;
 use App\Models\Category;
 use App\Models\Materiaal;
 use App\Models\MaterialType;
@@ -18,6 +20,8 @@ class UploadTest extends TestCase
     protected $pdfType;
     protected $youtubeType;
     protected $artikelType;
+    protected $adminRole;
+    protected $adminUser;
 
     protected function setUp(): void
     {
@@ -30,6 +34,8 @@ class UploadTest extends TestCase
         $this->pdfType = MaterialType::where('type', 'pdf')->firstOrFail();
         $this->youtubeType = MaterialType::where('type', 'youtube-link')->firstOrFail();
         $this->artikelType = MaterialType::where('type', 'artikel')->firstOrFail();
+        $this->adminRole = Roles::where('role_name', 'admin')->firstOrFail();
+        $this->adminUser = User::factory()->create(['role_id' => $this->adminRole->id]);
 
         $this->category = Category::firstOrFail();
 
@@ -58,8 +64,27 @@ class UploadTest extends TestCase
         ];
     }
 
+    public function test_unauthorized_cant_upload()
+    {
+        $title = 'test unauthorized user';
+        // double check admins are able to upload
+        $data = $this->actingAs($this->adminUser)->upload_file($title);
+        $data['response']->assertSessionHas('success');
+
+        // didnt make ouderRole and ouderUser class properties since theyre only used in this test
+        $ouderRole = Roles::where('role_name', 'ouder')->first();
+        $ouderUser = User::factory()->create(['role_id' => $ouderRole->id,]);
+
+        $data = $this->actingAs($ouderUser)->upload_file($title);
+
+        $data['response']->assertStatus(403);
+
+    }
+
     public function test_valid_file()
     {
+        $this->actingAs($this->adminUser);
+
         $title = 'Test valid file';
         $data = $this->upload_file($title);
 
@@ -73,6 +98,8 @@ class UploadTest extends TestCase
 
     public function test_invalid_file_type()
     {
+        $this->actingAs($this->adminUser);
+
         $title = 'Test invalid type';
         $file = UploadedFile::fake()->create('markdown.md', 200);
 
@@ -83,6 +110,8 @@ class UploadTest extends TestCase
 
     public function test_file_required()
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->post('/upload', [
             'description' => 'Test description',
             'material_type_id' => $this->pdfType->id,
@@ -96,6 +125,8 @@ class UploadTest extends TestCase
 
     public function test_url_required()
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->post('/upload', [
             'description' => 'Test description',
             'material_type_id' => $this->youtubeType->id,
@@ -109,6 +140,8 @@ class UploadTest extends TestCase
 
     public function test_valid_youtube_url()
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->post('/upload', [
             'description' => 'Test description',
             'material_type_id' => $this->youtubeType->id,
@@ -123,6 +156,8 @@ class UploadTest extends TestCase
 
     public function test_youtube_url_converted()
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->post('/upload', [
             'title' => 'youtube-test-video',
             'description' => 'Test description',
@@ -143,6 +178,8 @@ class UploadTest extends TestCase
 
     public function test_row_created()
     {
+        $this->actingAs($this->adminUser);
+
         $response = $this->post('/upload', [
             'title' => 'Test title',
             'description' => 'Test description',
@@ -158,6 +195,8 @@ class UploadTest extends TestCase
 
     public function test_stores_file_path()
     {
+        $this->actingAs($this->adminUser);
+
         $title = 'File path stored';
         $data = $this->upload_file($title);
 
@@ -170,6 +209,8 @@ class UploadTest extends TestCase
 
     public function test_invalid_category_id()
     {
+        $this->actingAs($this->adminUser);
+
         $title = 'Test invalid category id';
 
         $response = $this->post('/upload', [
@@ -183,6 +224,5 @@ class UploadTest extends TestCase
         $this->assertDatabaseMissing('materiaal', [
             'title' => $title
         ]);
-
     }
 }
