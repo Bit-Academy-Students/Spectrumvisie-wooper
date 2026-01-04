@@ -40,7 +40,7 @@ Het project is ontworpen met het oog op integratie met bestaande systemen van de
 ## Installatie en Gebruik
 1. Clone de repository: 
 ```
-git clone <repository-url>
+git clone git@github.com:Bit-Academy-Students/Spectrumvisie-wooper.git
 ```
 2. Installeer dependencies met: 
 ```
@@ -54,7 +54,11 @@ npm install
 4. Run migraties en seeders om de database op te zetten: 
 ```
 php artisan migrate --seed
-```  
+``` 
+en 
+``` 
+php artisan storage:link
+```
 5. Start de applicatie met: 
 ```
 php artisan serve

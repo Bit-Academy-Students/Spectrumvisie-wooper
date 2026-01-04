@@ -8,7 +8,7 @@ Voor dit project is een digitaal platform ontwikkeld waarmee materialen, documen
 Het integratieplan heeft drie hoofd-doelen:
 
 1. **Uitleggen hoe het systeem technisch werkt**, op een begrijpelijke manier.  
-2. **Voorbereiden van de uiteindelijke integratie** in het bestaande ICT-landschap van Spectrumvisie.  
+2. **Voorbereiden van de uiteindelijke integratie** in het bestaande ICT-omgeving van Spectrumvisie.  
 3. **Richtlijnen bieden aan de partij die het systeem technisch gaat overzetten**, zodat de overgang zonder problemen verloopt.
 
 ---
@@ -29,7 +29,7 @@ Het materiaalplatform bestaat uit de volgende onderdelen:
   - **Downloaden** (can_download)
 
 ### 3.3 Bestandenopslag
-- Bestanden worden opgeslagen via **Laravel Storage**, gescheiden in een *private* disk.
+- Bestanden worden opgeslagen via **Laravel Storage**, gescheiden in een *priv                                                                                                                                                                                                     ate* disk.
 - Alleen geautoriseerde gebruikers kunnen downloaden.
 
 ### 3.4 Gebruikers & Rollen
