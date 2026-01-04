@@ -66,6 +66,7 @@
                         Type: <span class="font-medium">{{ $item->materialType->type }}</span>
                     </p>
 
+                    <!-- Buttons -->
                     <div class="mt-auto flex items-center gap-3">
 
                         @if ($item->user_access && $item->user_access->can_view)
@@ -82,6 +83,14 @@
                         </a>
                         @endif
 
+                        @if (!$item->user_access)
+                        <button
+                            class="open-access-popup inline-flex items-center px-4 py-2 rounded-full bg-gray-200 text-gray-800 text-sm font-medium hover:bg-gray-300 transition">
+                            Toegang krijgen
+                        </button>
+                        @endif
+
+
                     </div>
 
                 </div>
@@ -97,6 +106,35 @@
 
         </div>
 
+    </div>
+
+    <!-- Popup -->
+    <div id="accessPopup"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+
+        <div class="bg-white rounded-2xl shadow-lg max-w-md w-full p-8">
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                Toegang vereist
+            </h2>
+
+            <p class="text-gray-600 mb-6">
+                Om dit materiaal te bekijken of downloaden moet je trainer zijn.
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button id="closeAccessPopup"
+                    class="px-4 py-2 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200 transition">
+                    Sluiten
+                </button>
+
+                <a href="http://127.0.0.1:8000/trainer"
+                    class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                    Word trainer
+                </a>
+            </div>
+
+        </div>
     </div>
 
 
@@ -171,6 +209,29 @@
 
             loadMoreBtn.addEventListener('click', showItems);
             showItems();
+        });
+
+        // Popup voor niet ingelogden
+        const accessPopup = document.getElementById('accessPopup');
+        const closeAccessPopup = document.getElementById('closeAccessPopup');
+
+        document.querySelectorAll('.open-access-popup').forEach(button => {
+            button.addEventListener('click', () => {
+                accessPopup.classList.remove('hidden');
+                accessPopup.classList.add('flex');
+            });
+        });
+
+        closeAccessPopup.addEventListener('click', () => {
+            accessPopup.classList.add('hidden');
+            accessPopup.classList.remove('flex');
+        });
+
+        accessPopup.addEventListener('click', (e) => {
+            if (e.target === accessPopup) {
+                accessPopup.classList.add('hidden');
+                accessPopup.classList.remove('flex');
+            }
         });
     </script>
 
