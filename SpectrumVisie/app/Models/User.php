@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Roles;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -50,10 +50,10 @@ class User extends Authenticatable
     }
 
 
-    public function roles()
+    public function role()
     {
         //Put role_id behind it becouse of the way laravel checks for fk
         //it checks the name of the model and searches for model namd + id but the db is named roles
-        return $this->belongsTo(Roles::class, 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

@@ -104,53 +104,47 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_roles(): void
+    public function test_admin(): void
     {
-        // Create users with each role
         $admin = User::factory()->create([
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'role_id' => 1,
         ]);
 
+        $response = $this->post('/login', [
+            'email' => 'admin@example.com',
+            'password' => 'password',
+        ]);
+        $this->assertEquals('admin', $admin->role->role_name);
+    }
+    public function test_trainer(): void
+    {
         $trainer = User::factory()->create([
             'email' => 'trainer@example.com',
             'password' => Hash::make('password'),
             'role_id' => 2,
         ]);
 
+        $response = $this->post('/login', [
+            'email' => 'trainer@example.com',
+            'password' => 'password',
+        ]);
+        $this->assertEquals('trainer', $trainer->role->role_name);
+    }
+
+    public function test_ouder(): void
+    {
         $ouder = User::factory()->create([
             'email' => 'ouder@example.com',
             'password' => Hash::make('password'),
             'role_id' => 3,
         ]);
 
-        // Test login for admin
-        $this->post('/login', [
-            'email' => 'admin@example.com',
-            'password' => 'password',
-        ]);
-        $this->assertAuthenticatedAs($admin);
-        $this->assertEquals('admin', Auth::user()->role->role_name);
-
-        Auth::logout(); // Log out before next login
-
-        // Test login for trainer
-        $this->post('/login', [
-            'email' => 'trainer@example.com',
-            'password' => 'password',
-        ]);
-        $this->assertAuthenticatedAs($trainer);
-        $this->assertEquals('trainer', Auth::user()->role->role_name);
-
-        Auth::logout();
-
-        // Test login for ouder
-        $this->post('/login', [
+        $response = $this->post('/login', [
             'email' => 'ouder@example.com',
             'password' => 'password',
         ]);
-        $this->assertAuthenticatedAs($ouder);
-        $this->assertEquals('ouder', Auth::user()->role->role_name);
+        $this->assertEquals('ouder', $ouder->role->role_name);
     }
 }

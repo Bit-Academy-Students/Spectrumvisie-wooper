@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Roles;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -25,7 +25,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         // Pick a random existing role
-        $role = Roles::inRandomOrder()->first();
+        $role = Role::inRandomOrder()->first();
 
         return [
             'name' => fake()->name(),
