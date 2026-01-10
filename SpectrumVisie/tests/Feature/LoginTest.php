@@ -23,7 +23,7 @@ class LoginTest extends TestCase
 
     public function test_logged_in_succesfull()
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'email' => 'jayven@gmail.com',
             'password' => Hash::make('123456'),
             'role_id' => 1
@@ -35,7 +35,30 @@ class LoginTest extends TestCase
         ];
 
         $response = $this->post('/login', $data);
+        $this->assertAuthenticatedAs($user);
         $response->assertRedirect('/');
+    }
+
+    public function test_logout(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'user@example.com',
+            'password' => Hash::make('password'),
+            'role_id' => 1,
+        ]);
+
+        $this->post('/login', [
+            'email' => 'user@example.com',
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+
+        $response = $this->post('/logout');
+
+        $response->assertRedirect('/');
+
+        $this->assertGuest();
     }
 
     public function test_wrong_password(): void
@@ -112,7 +135,7 @@ class LoginTest extends TestCase
             'role_id' => 1,
         ]);
 
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'admin@example.com',
             'password' => 'password',
         ]);
@@ -126,7 +149,7 @@ class LoginTest extends TestCase
             'role_id' => 2,
         ]);
 
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'trainer@example.com',
             'password' => 'password',
         ]);
@@ -141,10 +164,28 @@ class LoginTest extends TestCase
             'role_id' => 3,
         ]);
 
-        $response = $this->post('/login', [
+        $this->post('/login', [
             'email' => 'ouder@example.com',
             'password' => 'password',
         ]);
         $this->assertEquals('ouder', $ouder->role->role_name);
+    }
+
+    public function test_AdminDashboard_access()
+    {
+        User::factory()->create([
+            'email' => 'trainer@example.com',
+            'password' => Hash::make('password'),
+            'role_id' => 2,
+        ]);
+
+        $this->post('/login', [
+            'email' => 'trainer@example.com',
+            'password' => 'password',
+        ]);
+
+        $response = $this->get('/admin-dashboard');
+
+        $response->assertStatus(404);
     }
 }
