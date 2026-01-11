@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Roles;
+use App\Models\Role;
 use App\Models\Category;
 use App\Models\Materiaal;
 use App\Models\MaterialType;
@@ -35,7 +35,7 @@ class UploadTest extends TestCase
         $this->pdfType = MaterialType::where('type', 'pdf')->firstOrFail();
         $this->youtubeType = MaterialType::where('type', 'youtube-link')->firstOrFail();
         $this->artikelType = MaterialType::where('type', 'artikel')->firstOrFail();
-        $this->adminRole = Roles::where('role_name', 'admin')->firstOrFail();
+        $this->adminRole = Role::where('role_name', 'admin')->firstOrFail();
         $this->adminUser = User::factory()->create(['role_id' => $this->adminRole->id]);
 
         $this->category = Category::firstOrFail();
@@ -73,7 +73,7 @@ class UploadTest extends TestCase
         $data['response']->assertSessionHas('success');
 
         // didnt make ouderRole and ouderUser class properties since theyre only used in this test
-        $ouderRole = Roles::where('role_name', 'ouder')->first();
+        $ouderRole = Role::where('role_name', 'ouder')->first();
         $ouderUser = User::factory()->create(['role_id' => $ouderRole->id,]);
 
         $data = $this->actingAs($ouderUser)->upload_file($title);
