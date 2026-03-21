@@ -247,7 +247,6 @@
 
                             Bekijk Materialen
 
-                            <!-- ArrowRight icon -->
                             <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                             </svg>
@@ -259,10 +258,78 @@
 
         </section>
 
+        <section class="py-16 bg-blue-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-semibold text-slate-900 mb-8">Laatste posts</h2>
+
+                <template id="news-template">
+                    <article class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col justify-between h-full">
+                        <div>
+                            <span class="news-author text-xs font-semibold text-blue-600 uppercase tracking-wider mb-2 block"></span>
+                            <h3 class="news-title font-semibold text-lg mb-3 text-slate-800 line-clamp-3"></h3>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="news-link inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium mt-4">
+                            Lees bericht op Reddit
+                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </article>
+                </template>
+
+                <div id="news-container" class="grid md:grid-cols-3 gap-6">
+                    <p id="load-status" class="col-span-3 text-center py-8 text-gray-500 animate-pulse">post woren geladen</p>
+                </div>
+            </div>
+        </section>
+
         @include('layouts.footer')
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
+            const newsContainer = document.getElementById('news-container');
+            const loadStatus = document.getElementById('load-status');
+            const template = document.getElementById('news-template');
+
+            const apiUrl = 'https://www.reddit.com/r/autism/hot.json?limit=3';
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    //  Haal laadtekst weg als het geladen is
+                    if (loadStatus) {
+                        loadStatus.remove();
+                    }
+
+                    const articles = data.data.children;
+
+                    articles.forEach(article => {
+                        const item = article.data;
+
+                        // Clone html
+                        const clone = template.content.cloneNode(true);
+
+                        // Vul clone met data
+                        clone.querySelector('.news-author').textContent = `Door: ${item.author}`;
+                        clone.querySelector('.news-title').textContent = item.title;
+                        clone.querySelector('.news-link').href = `https://reddit.com${item.permalink}`;
+
+                        // Voeg toe aan container
+                        newsContainer.appendChild(clone);
+                    });
+                })
+                .catch(error => {
+                    console.error('Fout bij ophalen van de posts', error);
+                    if (loadStatus) {
+                        loadStatus.className = "col-span-3 bg-red-50 p-4 rounded-lg text-red-600 text-center";
+                        loadStatus.textContent = "Fout ophalen van posts.";
+                        loadStatus.classList.remove('animate-pulse');
+                    }
+                });
+        });
+    </script>
 </body>
 
 </html>

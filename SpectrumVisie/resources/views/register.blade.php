@@ -17,14 +17,14 @@
 
             <h1 class="text-2xl font-semibold mb-6 text-center">Registreren</h1>
 
-            {{-- Success message --}}
+
             @if (session('status'))
             <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('status') }}
             </div>
             @endif
 
-            {{-- Backend Validation errors (blijven belangrijk voor de zekerheid!) --}}
+
             @if ($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
                 <ul class="list-disc list-inside space-y-1">
@@ -54,7 +54,6 @@
 
                 <div class="space-y-1">
                     <label for="certificate_code" class="block text-gray-700">Certificaat</label>
-                    {{-- Hier even geen strenge validatie op gezet, want ik weet niet hoe zo'n code eruit ziet --}}
                     <input id="certificate_code" type="text" name="certificate_code" value="{{ old('certificate_code') }}"
                         class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
@@ -130,7 +129,7 @@
                 }
             });
 
-            // 2. Email checken met een regex
+            // Email checken met een regex
             emailInput.addEventListener('input', () => {
                 const errorEl = document.getElementById('emailError');
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,7 +141,7 @@
                 }
             });
 
-            // 3. Wachtwoord sterkte minimaal 8 tekens
+            //  Wachtwoord sterkte minimaal 8 tekens
             passwordInput.addEventListener('input', () => {
                 const errorEl = document.getElementById('passwordError');
 
@@ -158,7 +157,7 @@
                 }
             });
 
-            // 4. Wachtwoorden vergelijken
+            //  Wachtwoorden vergelijken
             const checkPasswordsMatch = () => {
                 const errorEl = document.getElementById('confirmError');
 
