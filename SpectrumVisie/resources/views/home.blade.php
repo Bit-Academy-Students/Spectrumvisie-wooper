@@ -14,7 +14,7 @@
 
     <main class="flex-1">
 
-        <section id="home" class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden">
+        <section id="home" class="relative bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6">
@@ -128,7 +128,7 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
                         <div class="relative order-2 lg:order-1">
-                            <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-slate-200">
+                            <div class="aspect-4/3 rounded-2xl overflow-hidden shadow-xl bg-slate-200">
                                 <img src="/images/tieners.jpg" alt="Tieners">
 
                                 alt="Learning support"
@@ -162,7 +162,7 @@
 
                                 @foreach($features as $feature)
                                 <div class="flex items-center gap-3">
-                                    <div class="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                    <div class="shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
                                         <span class="text-green-600 text-xs">✔</span>
                                     </div>
                                     <span class="text-gray-700">{{ $feature }}</span>
@@ -240,7 +240,7 @@
 
 
                         <a href="http://127.0.0.1:8000/platform"
-                            class="inline-flex items-center px-6 py-3 text-white text-lg rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-700">
+                            class="inline-flex items-center px-6 py-3 text-white text-lg rounded-lg bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-700">
 
 
 
@@ -278,7 +278,7 @@
                 </template>
 
                 <div id="news-container" class="grid md:grid-cols-3 gap-6">
-                    <p id="load-status" class="col-span-3 text-center py-8 text-gray-500 animate-pulse">post woren geladen</p>
+                    <p id="load-status" class="col-span-3 text-center py-8 text-gray-500 ">post woren geladen</p>
                 </div>
             </div>
         </section>
@@ -293,39 +293,52 @@
             const loadStatus = document.getElementById('load-status');
             const template = document.getElementById('news-template');
 
-            const apiUrl = 'https://www.reddit.com/r/autism/hot.json?limit=3';
+
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dautisme%26hl%3Dnl%26gl%3DNL%26ceid%3DNL%3Anl';
 
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) throw new Error('Netwerk response was niet ok');
+                    return response.json();
+                })
                 .then(data => {
-                    //  Haal laadtekst weg als het geladen is
+                    // Verwijder de "posts worden geladen" tekst
                     if (loadStatus) {
                         loadStatus.remove();
                     }
 
-                    const articles = data.data.children;
+                    // Eerste 3 artikelen tonen
+                    const articles = data.items.slice(0, 3);
 
-                    articles.forEach(article => {
-                        const item = article.data;
-
-                        // Clone html
+                    articles.forEach(item => {
                         const clone = template.content.cloneNode(true);
 
-                        // Vul clone met data
-                        clone.querySelector('.news-author').textContent = `Door: ${item.author}`;
-                        clone.querySelector('.news-title').textContent = item.title;
-                        clone.querySelector('.news-link').href = `https://reddit.com${item.permalink}`;
+                        // Format datum
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('nl-NL');
+                        clone.querySelector('.news-author').textContent = `Nieuws • ${pubDate}`;
 
-                        // Voeg toe aan container
+                        // Titel
+                        clone.querySelector('.news-title').textContent = item.title;
+
+                        // Link
+                        const link = clone.querySelector('.news-link');
+                        link.href = item.link;
+                        link.innerHTML = `
+                            Lees heel artikel
+                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        `;
+
+                        // Voeg artikel toe
                         newsContainer.appendChild(clone);
                     });
                 })
                 .catch(error => {
-                    console.error('Fout bij ophalen van de posts', error);
+                    console.error('Fout bij ophalen van het nieuws', error);
                     if (loadStatus) {
                         loadStatus.className = "col-span-3 bg-red-50 p-4 rounded-lg text-red-600 text-center";
-                        loadStatus.textContent = "Fout ophalen van posts.";
-                        loadStatus.classList.remove('animate-pulse');
+                        loadStatus.textContent = "Nieuws kan niet worden geladen.";
                     }
                 });
         });
