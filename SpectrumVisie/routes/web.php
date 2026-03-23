@@ -99,4 +99,3 @@ Route::get('/admin/dashboard', function (
 
     return view('Admin_dashboard', compact('data', 'UserData', 'Users'));
 })->name('admin.dashboard')->middleware(AdminMiddleware::class);
-
