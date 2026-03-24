@@ -99,3 +99,11 @@ Route::get('/admin/dashboard', function (
 
     return view('Admin_dashboard', compact('data', 'UserData', 'Users'));
 })->name('admin.dashboard')->middleware(AdminMiddleware::class);
+
+Route::get('/kennisbank', function () {
+    return view('kennisbank');
+});
+
+Route::get('/reviews', function () {
+    return view('reviews');
+});
